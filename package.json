@@ -1,14 +1,14 @@
 {
-    "name": "yolink-wrapper-api-v2",
-    "version": "1.0.0",
-    "description": "",
+    "name": "yoyoapi",
+    "version": "0.0.1",
+    "description": "API Wrapper for YoLink Devices",
     "main": "dist/index.js",
     "scripts": {
         "dev": "node ./dist/index.js"
     },
     "keywords": [],
     "author": "",
-    "license": "ISC",
+    "license": "MIT",
     "devDependencies": {
         "@types/node": "^20.8.2",
         "eslint": "^8.50.0",
