@@ -6,7 +6,6 @@ import {
     RefreshTokenOptions
 } from "../types/Authentication.js"
 
-
 const refreshToken = async (refreshOptions: RefreshTokenOptions): Promise<Response> => {
     
     const bodyData = {
