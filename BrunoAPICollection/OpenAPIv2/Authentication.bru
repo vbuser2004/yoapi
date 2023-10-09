@@ -1,0 +1,23 @@
+meta {
+  name: Authentication
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{authURL}}
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "grant_type": "client_credentials",
+    "client_id": {{UAID}},
+    "client_secret": {{SecretKey}}
+  }
+}
