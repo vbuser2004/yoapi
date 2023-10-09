@@ -37,7 +37,15 @@ const CredentialsResponse_Schema = z.object({
 
 type CredentialsResponse = z.infer<typeof CredentialsResponse_Schema>
 
+const RefreshTokenOptions_Schema = z.object({
 
+    authURL: z.string(),
+    UAID: z.string(),
+    refresh_token: z.string()
+
+})
+
+type RefreshTokenOptions = z.infer<typeof RefreshTokenOptions_Schema>
 
 export {
     AuthenticationOptions,
@@ -47,5 +55,7 @@ export {
     Credentials,
     Credentials_Schema,
     CredentialsResponse,
-    CredentialsResponse_Schema
+    CredentialsResponse_Schema,
+    RefreshTokenOptions,
+    RefreshTokenOptions_Schema
 }

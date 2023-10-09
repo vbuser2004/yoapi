@@ -1,21 +1,21 @@
 import 'dotenv/config'
 import { 
-    AuthenticationOptions, 
     AuthenticationResponseError_Schema, 
     Credentials_Schema,
-    CredentialsResponse
+    CredentialsResponse,
+    RefreshTokenOptions
 } from "../types/Authentication.js"
 
 
-const fetchToken = async (authOptions: AuthenticationOptions): Promise<Response> => {
+const refreshToken = async (refreshOptions: RefreshTokenOptions): Promise<Response> => {
     
     const bodyData = {
-        grant_type: 'client_credentials',
-        client_id: authOptions.UAID,
-        client_secret: authOptions.secretKey
+        grant_type: 'refresh_token',
+        client_id: refreshOptions.UAID,
+        refresh_token: refreshOptions.refresh_token
     }
 
-    const response = await fetch(authOptions.authURL, {
+    const response = await fetch(refreshOptions.authURL, {
         method: "POST",
         headers: {
             'Content-Type': 'application/json', 
@@ -24,6 +24,7 @@ const fetchToken = async (authOptions: AuthenticationOptions): Promise<Response>
         },
         body: JSON.stringify(bodyData)
     });
+
 
     if (response.ok) {
         return await response.json()
@@ -45,16 +46,16 @@ const fillInCredentials = async (responsePackage: CredentialsResponse):Promise<C
     return creds
 }
 
-export const auth = async ({ UAID, secretKey, authURL = process.env.YOLINK_AUTH_URL!}: AuthenticationOptions ): Promise<CredentialsResponse> => {
+export const refresh = async (refreshOptions: RefreshTokenOptions ): Promise<CredentialsResponse> => {
 
-    const authResponse = await fetchToken({UAID, secretKey, authURL});
+    const refreshResponse = await refreshToken(refreshOptions);
 
     // Invalid response from server
-    if(!authResponse) {
+    if(!refreshResponse) {
         return fillInCredentials({success: false, message: "Server Error", data: {}});
     }
 
-    const isError = AuthenticationResponseError_Schema.safeParse(authResponse);
+    const isError = AuthenticationResponseError_Schema.safeParse(refreshResponse);
 
     // Error response from server
     if(isError.success) {
@@ -62,7 +63,7 @@ export const auth = async ({ UAID, secretKey, authURL = process.env.YOLINK_AUTH_
         return fillInCredentials({success: false, message: "Authentication Error", data: {}})
     }
 
-    const isCredentials = Credentials_Schema.safeParse(authResponse);
+    const isCredentials = Credentials_Schema.safeParse(refreshResponse);
 
     if(isCredentials.success) {
         // Valid credentials
@@ -72,3 +73,14 @@ export const auth = async ({ UAID, secretKey, authURL = process.env.YOLINK_AUTH_
     }
 
 }
+
+
+
+// {
+//     "code": "010104",
+//     "time": 1696807531863,
+//     "msgid": 1696807531863,
+//     "method": "Hub.getState",
+//     "desc": "Header Error!The token expired",
+//     "data": {}
+//   }

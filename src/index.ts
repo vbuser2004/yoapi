@@ -1,5 +1,3 @@
-import 'dotenv/config'
-import { auth } from './auth/token.js';
 import { CredentialsResponse, AuthenticationOptions_Schema, AuthenticationOptions } from './types/Authentication.js';
 
 // const authoptions = {
@@ -33,14 +31,6 @@ class yoyoApi {
         if(ApiURL) {
             this.ApiURL = ApiURL
         }
-    }
-
-    getAuth = async () => {
-
-        const response = await auth(this.authOptions);
-
-        console.log(JSON.stringify(response, null, 3));
-
     }
 
 }
