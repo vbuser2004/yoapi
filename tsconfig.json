@@ -1,12 +1,23 @@
 {
     "compilerOptions": {
+        // "strict": true,
+        "noUncheckedIndexedAccess": true,
+        "esModuleInterop": true,
+        "allowJs": true,
         "outDir": "dist",
         "module": "NodeNext",
-        "target": "ES2020",
+        "target": "ES2022",
         "sourceMap": true,
         "moduleResolution": "NodeNext",
-        "resolveJsonModule": true
+        "moduleDetection": "force",
+        "resolveJsonModule": true,
+        "skipLibCheck": true,
+        "lib": ["es2022", "DOM"],
+        "declaration": true
     },
     "include": ["src/**/*"],
     "exclude": ["node_modules", "BrunoAPICollection"]
 }
+
+
+//"verbatimModuleSyntax": true,

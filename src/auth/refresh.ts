@@ -1,79 +1,96 @@
-import 'dotenv/config'
-import { 
-    AuthenticationResponseError_Schema, 
-    Credentials_Schema,
+import 'dotenv/config';
+import type {
     CredentialsResponse,
-    RefreshTokenOptions
-} from "../types/Authentication.js"
+    RefreshTokenOptions,
+} from '../types/Authentication.js';
+import {
+    AuthenticationResponseError_Schema,
+    Credentials_Schema,
+} from '../types/Authentication.js';
 
-const refreshToken = async (refreshOptions: RefreshTokenOptions): Promise<Response> => {
-    
+const refreshToken = async (
+    refreshOptions: RefreshTokenOptions
+): Promise<string> => {
     const bodyData = {
         grant_type: 'refresh_token',
         client_id: refreshOptions.UAID,
-        refresh_token: refreshOptions.refresh_token
-    }
+        refresh_token: refreshOptions.refresh_token,
+    };
 
     const response = await fetch(refreshOptions.authURL, {
-        method: "POST",
+        method: 'POST',
         headers: {
-            'Content-Type': 'application/json', 
+            'Content-Type': 'application/json',
             'User-Agent': 'yoyoapi',
-            'yoyoapi-Version': process.env.YOYOAPI_VERSION,
+            'yoyoapi-Version': process.env.YOYOAPI_VERSION || '',
         },
-        body: JSON.stringify(bodyData)
+        body: JSON.stringify(bodyData),
     });
 
-
     if (response.ok) {
-        return await response.json()
+        return await response.json();
     } else {
-        return null
+        return JSON.stringify({ state: 'error', msg: 'Invalid Parameters' });
     }
+};
 
-}
-
-const fillInCredentials = async (responsePackage: CredentialsResponse):Promise<CredentialsResponse> => {
-
+const fillInCredentials = async (
+    responsePackage: CredentialsResponse
+): Promise<CredentialsResponse> => {
     const creds = {
         success: responsePackage.success,
         message: responsePackage.message,
-        request_time: Math.floor((new Date()).getTime() / 1000),
-        data: { ...responsePackage.data }
-    }
+        request_time: Math.floor(new Date().getTime() / 1000),
+        data: responsePackage.data,
+    };
 
-    return creds
-}
+    return creds;
+};
 
-export const refresh = async (refreshOptions: RefreshTokenOptions ): Promise<CredentialsResponse> => {
-
+export const refresh = async (
+    refreshOptions: RefreshTokenOptions
+): Promise<CredentialsResponse> => {
     const refreshResponse = await refreshToken(refreshOptions);
 
     // Invalid response from server
-    if(!refreshResponse) {
-        return fillInCredentials({success: false, message: "Server Error", data: {}});
+    if (!refreshResponse) {
+        return fillInCredentials({
+            success: false,
+            message: 'Server Error',
+            data: undefined,
+        });
     }
 
-    const isError = AuthenticationResponseError_Schema.safeParse(refreshResponse);
+    const isError =
+        AuthenticationResponseError_Schema.safeParse(refreshResponse);
 
     // Error response from server
-    if(isError.success) {
+    if (isError.success) {
         // Error from login
-        return fillInCredentials({success: false, message: "Authentication Error", data: {}})
+        return fillInCredentials({
+            success: false,
+            message: 'Authentication Error',
+            data: undefined,
+        });
     }
 
     const isCredentials = Credentials_Schema.safeParse(refreshResponse);
 
-    if(isCredentials.success) {
+    if (isCredentials.success) {
         // Valid credentials
-        return fillInCredentials({success: true, message: "", data: isCredentials.data })
+        return fillInCredentials({
+            success: true,
+            message: '',
+            data: isCredentials.data,
+        });
     } else {
-        return fillInCredentials({success: false, message: "Configuration Error", data: {}})
+        return fillInCredentials({
+            success: false,
+            message: 'Configuration Error',
+            data: undefined,
+        });
     }
-
-}
-
-
+};
 
 // {
 //     "code": "010104",

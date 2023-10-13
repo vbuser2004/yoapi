@@ -7,7 +7,7 @@ const AuthenticationOptions_Schema = z.object({
     secretKey: z.string()
 })
 
-type AuthenticationOptions = z.infer<typeof AuthenticationOptions_Schema>
+export type AuthenticationOptions = z.infer<typeof AuthenticationOptions_Schema>
 
 
 const AuthenticationResponseError_Schema = z.object({
@@ -15,7 +15,7 @@ const AuthenticationResponseError_Schema = z.object({
     msg: z.string()
 });
 
-type AuthenticationResponseError = z.infer<typeof AuthenticationResponseError_Schema>;
+export type AuthenticationResponseError = z.infer<typeof AuthenticationResponseError_Schema>;
 
 const Credentials_Schema = z.object({
     access_token: z.string(),
@@ -25,7 +25,7 @@ const Credentials_Schema = z.object({
     scope: z.string().array()
 })
 
-type Credentials = z.infer<typeof Credentials_Schema>
+export type Credentials = z.infer<typeof Credentials_Schema>
 
 
 const CredentialsResponse_Schema = z.object({
@@ -35,7 +35,7 @@ const CredentialsResponse_Schema = z.object({
     data: Credentials_Schema.optional()    
 })
 
-type CredentialsResponse = z.infer<typeof CredentialsResponse_Schema>
+export type CredentialsResponse = z.infer<typeof CredentialsResponse_Schema>
 
 const RefreshTokenOptions_Schema = z.object({
 
@@ -45,17 +45,12 @@ const RefreshTokenOptions_Schema = z.object({
 
 })
 
-type RefreshTokenOptions = z.infer<typeof RefreshTokenOptions_Schema>
+export type RefreshTokenOptions = z.infer<typeof RefreshTokenOptions_Schema>
 
 export {
-    AuthenticationOptions,
     AuthenticationOptions_Schema,
-    AuthenticationResponseError,
     AuthenticationResponseError_Schema,
-    Credentials,
     Credentials_Schema,
-    CredentialsResponse,
     CredentialsResponse_Schema,
-    RefreshTokenOptions,
     RefreshTokenOptions_Schema
 }
