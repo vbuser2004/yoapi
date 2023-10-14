@@ -8,16 +8,18 @@ import {
     Credentials_Schema,
 } from '../types/Authentication.js';
 
-const refreshToken = async (
-    refreshOptions: RefreshTokenOptions
-): Promise<string> => {
+const refreshToken = async ({
+    UAID,
+    refresh_token,
+    authURL = process.env.YOLINK_AUTH_URL!,
+}: RefreshTokenOptions): Promise<string> => {
     const bodyData = {
         grant_type: 'refresh_token',
-        client_id: refreshOptions.UAID,
-        refresh_token: refreshOptions.refresh_token,
+        client_id: UAID,
+        refresh_token: refresh_token,
     };
 
-    const response = await fetch(refreshOptions.authURL, {
+    const response = await fetch(authURL, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -34,20 +36,20 @@ const refreshToken = async (
     }
 };
 
-const fillInCredentials = async (
+const fillInCredentials = (
     responsePackage: CredentialsResponse
-): Promise<CredentialsResponse> => {
+): CredentialsResponse => {
     const creds = {
         success: responsePackage.success,
         message: responsePackage.message,
-        request_time: Math.floor(new Date().getTime() / 1000),
+        request_time: Math.floor(new Date().getTime()),
         data: responsePackage.data,
     };
 
     return creds;
 };
 
-export const refresh = async (
+const refresh = async (
     refreshOptions: RefreshTokenOptions
 ): Promise<CredentialsResponse> => {
     const refreshResponse = await refreshToken(refreshOptions);
@@ -91,6 +93,8 @@ export const refresh = async (
         });
     }
 };
+
+export default refresh;
 
 // {
 //     "code": "010104",
