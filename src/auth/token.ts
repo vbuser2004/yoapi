@@ -9,6 +9,8 @@ import {
     Credentials_Schema,
 } from '../types/Authentication.js';
 
+import { fillInCredentials } from './utility.js';
+
 const fetchToken = async (
     authOptions: AuthenticationOptions
 ): Promise<string> => {
@@ -38,19 +40,6 @@ const fetchToken = async (
     } else {
         return JSON.stringify({ state: 'error', msg: 'Invalid Parameters' });
     }
-};
-
-const fillInCredentials = (
-    responsePackage: CredentialsResponse
-): CredentialsResponse => {
-    const creds: CredentialsResponse = {
-        success: responsePackage.success,
-        message: responsePackage.message,
-        request_time: Math.floor(new Date().getTime()),
-        data: responsePackage.data,
-    };
-
-    return creds;
 };
 
 const auth = async ({

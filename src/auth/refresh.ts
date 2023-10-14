@@ -8,6 +8,8 @@ import {
     Credentials_Schema,
 } from '../types/Authentication.js';
 
+import { fillInCredentials } from './utility.js';
+
 const refreshToken = async ({
     UAID,
     refresh_token,
@@ -34,19 +36,6 @@ const refreshToken = async ({
     } else {
         return JSON.stringify({ state: 'error', msg: 'Invalid Parameters' });
     }
-};
-
-const fillInCredentials = (
-    responsePackage: CredentialsResponse
-): CredentialsResponse => {
-    const creds = {
-        success: responsePackage.success,
-        message: responsePackage.message,
-        request_time: Math.floor(new Date().getTime()),
-        data: responsePackage.data,
-    };
-
-    return creds;
 };
 
 const refresh = async (
@@ -95,12 +84,3 @@ const refresh = async (
 };
 
 export default refresh;
-
-// {
-//     "code": "010104",
-//     "time": 1696807531863,
-//     "msgid": 1696807531863,
-//     "method": "Hub.getState",
-//     "desc": "Header Error!The token expired",
-//     "data": {}
-//   }

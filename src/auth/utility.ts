@@ -3,6 +3,20 @@ import {
     CredentialsResponse,
 } from '../types/Authentication.js';
 
+// Completes Credential Response
+const fillInCredentials = (
+    responsePackage: CredentialsResponse
+): CredentialsResponse => {
+    const creds = {
+        success: responsePackage.success,
+        message: responsePackage.message,
+        request_time: Math.floor(new Date().getTime()),
+        data: responsePackage.data,
+    };
+
+    return creds;
+};
+
 // Checks to see if current jwt is still valid
 const isJwtExpired = (authExpire: number): boolean => {
     const timeDiff: number = authExpire - Math.floor(new Date().getTime());
@@ -42,4 +56,4 @@ const getExpiresIn = (
     return new_expires_In;
 };
 
-export { isJwtExpired, isRefreshToken, getExpiresIn };
+export { fillInCredentials, isJwtExpired, isRefreshToken, getExpiresIn };
