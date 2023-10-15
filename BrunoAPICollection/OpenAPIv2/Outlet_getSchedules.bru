@@ -1,0 +1,27 @@
+meta {
+  name: Outlet_getSchedules
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{deviceURL}}
+  body: json
+  auth: bearer
+}
+
+headers {
+  Content-Type: application/json
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+body:json {
+  {
+    "method": "Outlet.getSchedules",
+    "targetDevice": "{{OUTLET_TARGET_DEV}}",
+    "token": "{{OUTLET_TOKEN}}"
+  }
+}

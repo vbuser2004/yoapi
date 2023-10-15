@@ -43,6 +43,7 @@ class yoyoApi {
 
     async ManualAuthentication(): Promise<boolean> {
         const isAuthenticated: boolean = await Authenticated();
+
         return isAuthenticated;
     }
 }

@@ -1,0 +1,25 @@
+meta {
+  name: GetAllDevices
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{deviceURL}}
+  body: json
+  auth: bearer
+}
+
+headers {
+  Content-Type: application/json
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+body:json {
+  {
+    "method": "Home.getDeviceList"
+  }
+}

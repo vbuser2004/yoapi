@@ -1,0 +1,27 @@
+meta {
+  name: Outlet_getState
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{deviceURL}}
+  body: json
+  auth: bearer
+}
+
+headers {
+  Content-Type: application/json
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+body:json {
+  {
+    "method": "Outlet.getState",
+    "targetDevice": "{{OUTLET_TARGET_DEV}}",
+    "token": "{{OUTLET_TOKEN}}"
+  }
+}
