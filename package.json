@@ -2,14 +2,16 @@
     "name": "yoyoapi",
     "version": "0.0.1",
     "description": "API Wrapper for YoLink Devices",
-    "main": "dist/index.js",
     "type": "module",
     "scripts": {
         "build": "tsc",
         "dev": "tsc && node ./dist/index.js"
     },
-    "keywords": [],
-    "author": "",
+    "keywords": [
+        "yosmart",
+        "yolink"
+    ],
+    "author": "vbuser2004",
     "license": "MIT",
     "devDependencies": {
         "@types/node": "^20.8.2",
