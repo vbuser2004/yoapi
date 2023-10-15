@@ -1,0 +1,28 @@
+meta {
+  name: MotionSensor_getState
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{deviceURL}}
+  body: json
+  auth: bearer
+}
+
+headers {
+  Content-Type: application/json
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+body:json {
+  {
+    "method": "MotionSensor.getState",
+    "targetDevice": "{{MOTION_TARGET_DEV}}",
+    "token": "{{MOTION_TOKEN}}"
+  }
+  
+}
