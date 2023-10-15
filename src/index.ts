@@ -5,12 +5,13 @@ import {
 } from './types/Authentication.js';
 
 import { Authenticated } from './auth/index.js';
+import { sendRequest } from './lib/client.js';
 
 class yoyoApi {
     // VARIABLES
     static Credentials: CredentialsResponse;
-    public ApiURL: string;
-    public AuthenticationURL: string;
+    static ApiURL: string;
+    static AuthenticationURL: string;
     static AuthOptions: AuthenticationOptions;
     static AuthExpire: number = 0; //Expiration time of the current credentials - defaults to 0
 
@@ -35,8 +36,8 @@ class yoyoApi {
             throw new Error('Invalid Authentication Details');
         }
 
-        this.ApiURL = ApiURL;
-        this.AuthenticationURL = AuthenticationURL;
+        yoyoApi.ApiURL = ApiURL;
+        yoyoApi.AuthenticationURL = AuthenticationURL;
     }
 
     // FUNCTIONS
@@ -45,6 +46,15 @@ class yoyoApi {
         const isAuthenticated: boolean = await Authenticated();
 
         return isAuthenticated;
+    }
+
+    async SendRequest(): Promise<string> {
+        return sendRequest(
+            'Outlet.getState',
+            '1234',
+            'gh',
+            '6BEC61702A5AED0F064E64D58D909CC6'
+        );
     }
 }
 
