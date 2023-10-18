@@ -2,6 +2,7 @@ import {
     CredentialsResponse,
     AuthenticationOptions_Schema,
     AuthenticationOptions,
+    ApiUrl_Schema,
 } from './types/Authentication.js';
 
 import { Authenticated } from './auth/index.js';
@@ -23,7 +24,7 @@ class yoyoApi {
         ApiURL: string = process.env.YOSMART_API_URL
     ) {
         // Validate Authentication Details
-        const isAuthOptions = AuthenticationOptions_Schema.safeParse({
+        const isAuthOptions = AuthenticationOptions_Schema.partial().safeParse({
             UAID,
             secretKey: SecretKey,
             authURL: AuthenticationURL,
@@ -32,19 +33,24 @@ class yoyoApi {
         // Assign Authentication Options
         if (isAuthOptions.success) {
             yoyoApi.AuthOptions = isAuthOptions.data;
+            yoyoApi.AuthenticationURL = isAuthOptions.data.authURL;
         } else {
             throw new Error('Invalid Authentication Details');
         }
 
-        yoyoApi.ApiURL = ApiURL;
-        yoyoApi.AuthenticationURL = AuthenticationURL;
+        const isApiUrl = ApiUrl_Schema.safeParse(ApiURL);
+
+        if (isApiUrl.success) {
+            yoyoApi.ApiURL = isApiUrl.data;
+        } else {
+            throw new Error('Invalid API Url');
+        }
     }
 
     // FUNCTIONS
 
     async ManualAuthentication(): Promise<boolean> {
         const isAuthenticated: boolean = await Authenticated();
-
         return isAuthenticated;
     }
 

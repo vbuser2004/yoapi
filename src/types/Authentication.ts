@@ -1,9 +1,13 @@
 import { z } from 'zod';
 
+const ApiUrl_Schema = z.string().url().optional();
+
+export type ApiUrl = z.infer<typeof ApiUrl_Schema>;
+
 const AuthenticationOptions_Schema = z.object({
-    authURL: z.string().optional(),
-    UAID: z.string().optional(),
-    secretKey: z.string().optional(),
+    authURL: z.string().url(),
+    UAID: z.string(),
+    secretKey: z.string(),
 });
 
 export type AuthenticationOptions = z.infer<
@@ -39,7 +43,7 @@ const CredentialsResponse_Schema = z.object({
 export type CredentialsResponse = z.infer<typeof CredentialsResponse_Schema>;
 
 const RefreshTokenOptions_Schema = z.object({
-    authURL: z.string(),
+    authURL: z.string().url(),
     UAID: z.string(),
     refresh_token: z.string(),
 });
@@ -47,6 +51,7 @@ const RefreshTokenOptions_Schema = z.object({
 export type RefreshTokenOptions = z.infer<typeof RefreshTokenOptions_Schema>;
 
 export {
+    ApiUrl_Schema,
     AuthenticationOptions_Schema,
     AuthenticationResponseError_Schema,
     Credentials_Schema,
