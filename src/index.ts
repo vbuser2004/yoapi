@@ -48,8 +48,13 @@ class yoyoApi {
         return isAuthenticated;
     }
 
-    async SendRequest(): Promise<string> {
-        return sendRequest('Outlet.getState', '1234', 'gh', 'gcc');
+    async SendRequest(
+        method: string,
+        msgid: string,
+        deviceId: string,
+        token: string
+    ): Promise<string> {
+        return sendRequest(method, msgid, deviceId, token);
     }
 }
 
