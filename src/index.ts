@@ -49,12 +49,7 @@ class yoyoApi {
     }
 
     async SendRequest(): Promise<string> {
-        return sendRequest(
-            'Outlet.getState',
-            '1234',
-            'gh',
-            '6BEC61702A5AED0F064E64D58D909CC6'
-        );
+        return sendRequest('Outlet.getState', '1234', 'gh', 'gcc');
     }
 }
 

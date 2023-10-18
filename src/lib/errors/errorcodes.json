@@ -1,0 +1,19 @@
+[
+    { "code": "000101", "desc": "Can't connect to the Hub" },
+    { "code": "000102", "desc": "Hub can't respond to this command" },
+    { "code": "000103", "desc": "token is not valid" },
+    { "code": "000201", "desc": "Can't connect to the Device" },
+    { "code": "000202", "desc": "Device can't respond to this command" },
+    { "code": "000203", "desc": "Cann't connect to the Device" },
+    { "code": "010000", "desc": "Connection not available,try again" },
+    { "code": "010101", "desc": "Header Error! Customer ID Error" },
+    { "code": "010201", "desc": "Body Error! Time can not be null" },
+    { "code": "020102", "desc": "Device mask error" },
+    { "code": "020201", "desc": "No device searched" },
+    { "code": "010201", "desc": "Body Error! Time can not be null" },
+    { "code": "030101", "desc": "No Data found" },
+    {
+        "code": "999999",
+        "desc": "UnKnown Error, Please email to support@YoSmart.com"
+    }
+]
