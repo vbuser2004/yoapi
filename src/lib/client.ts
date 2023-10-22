@@ -13,9 +13,9 @@ export const sendRequest = async (
     const apiURL = yoyoApi.ApiURL;
     const isAuthenticated = await Authenticated();
 
-    if (!isAuthenticated) return {}; // TODO: return auth error
+    if (!isAuthenticated) return { msg: 'Error' }; // TODO: return auth error
 
-    const authjwt = yoyoApi.Credentials.data.access_token;
+    const authjwt = yoyoApi.Credentials.access_token;
 
     const msgBody = generateBody(method, msgid, targetDevice, token, params);
 

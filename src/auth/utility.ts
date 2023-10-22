@@ -1,5 +1,6 @@
 import {
     CredentialsResponse_Schema,
+    Credentials,
     CredentialsResponse,
 } from '../types/Authentication.js';
 
@@ -19,13 +20,17 @@ const fillInCredentials = (
 
 // Checks to see if current jwt is still valid
 const isJwtExpired = (authExpire: number): boolean => {
+    if (authExpire < 0) return true;
+
     const timeDiff: number = authExpire - Math.floor(new Date().getTime());
+
     if (timeDiff <= 0) return true;
+
     return false;
 };
 
 // Checks to see if valid tokens exist in credentials
-const isRefreshToken = (credentials: CredentialsResponse): boolean => {
+const isRefreshToken = (credentials: Credentials): boolean => {
     // Check if valid credentials
     const creds = CredentialsResponse_Schema.safeParse(credentials);
 

@@ -1,5 +1,5 @@
 import {
-    CredentialsResponse,
+    Credentials,
     AuthenticationOptions_Schema,
     AuthenticationOptions,
     ApiUrl_Schema,
@@ -10,21 +10,23 @@ import { sendRequest } from './lib/client.js';
 
 class yoyoApi {
     // VARIABLES
-    static Credentials: CredentialsResponse;
+    static Credentials: Credentials;
     static ApiURL: string;
     static AuthenticationURL: string;
     static AuthOptions: AuthenticationOptions;
-    static AuthExpire: number = 0; //Expiration time of the current credentials - defaults to 0
+    static AuthExpire: number = -1; //Expiration time of the current credentials - defaults to 0
+    static OffSet: number;
 
     // CONSTRUCTOR
     constructor(
         UAID: string,
         SecretKey: string,
-        AuthenticationURL: string = process.env.YOSMART_AUTH_URL,
-        ApiURL: string = process.env.YOSMART_API_URL
+        AuthenticationURL: string = 'https://api.yosmart.com/open/yolink/token',
+        ApiURL: string = 'https://api.yosmart.com/open/yolink/v2/api',
+        OffSetPercentage: number = 20
     ) {
         // Validate Authentication Details
-        const isAuthOptions = AuthenticationOptions_Schema.partial().safeParse({
+        const isAuthOptions = AuthenticationOptions_Schema.safeParse({
             UAID,
             secretKey: SecretKey,
             authURL: AuthenticationURL,
@@ -45,6 +47,8 @@ class yoyoApi {
         } else {
             throw new Error('Invalid API Url');
         }
+
+        yoyoApi.OffSet = OffSetPercentage;
     }
 
     // FUNCTIONS

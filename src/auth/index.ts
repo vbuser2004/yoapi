@@ -5,23 +5,16 @@ import auth from './token.js';
 import * as authutil from './utility.js';
 
 const updateAuthData = (credresponse: CredentialsResponse): void => {
-    const offSet = parseInt(process.env.YOYOAPI_AUTH_OFFSET_PERCENT) || 20;
-
     if (credresponse.success) {
-        yoyoApi.Credentials = { ...credresponse };
+        yoyoApi.Credentials = { ...credresponse.data! };
+
         yoyoApi.AuthExpire = authutil.getExpiresIn(
-            credresponse.data.expires_in,
-            offSet,
+            yoyoApi.Credentials.expires_in,
+            yoyoApi.OffSet,
             credresponse.request_time
         );
     } else {
-        yoyoApi.Credentials = {
-            success: false,
-            data: undefined,
-            message: '',
-            request_time: Math.floor(new Date().getTime()),
-        };
-        yoyoApi.AuthExpire = 0;
+        yoyoApi.AuthExpire = -1;
     }
 };
 
@@ -44,7 +37,7 @@ export const Authenticated = async (): Promise<boolean> => {
         credresponse = await refresh({
             authURL: authOptions.authURL,
             UAID: authOptions.UAID,
-            refresh_token: creds.data.refresh_token,
+            refresh_token: creds.refresh_token,
         });
     } else {
         console.log('Auth Token');

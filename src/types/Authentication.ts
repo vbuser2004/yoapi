@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-const ApiUrl_Schema = z.string().url().optional();
+const ApiUrl_Schema = z.string().url();
 
 export type ApiUrl = z.infer<typeof ApiUrl_Schema>;
 

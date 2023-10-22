@@ -20,11 +20,6 @@ const fetchToken = async (
         client_secret: authOptions.secretKey,
     };
 
-    const isValidAuthOptions = AuthenticationOptions_Schema.safeParse(bodyData);
-
-    if (!isValidAuthOptions.success)
-        return JSON.stringify({ state: 'error', msg: 'Invalid Parameters' });
-
     const response = await fetch(authOptions.authURL, {
         method: 'POST',
         headers: {
@@ -43,11 +38,25 @@ const fetchToken = async (
 };
 
 const auth = async ({
+    authURL,
     UAID,
     secretKey,
-    authURL = process.env.YOLINK_AUTH_URL!,
 }: AuthenticationOptions): Promise<CredentialsResponse> => {
-    const authResponse = await fetchToken({ UAID, secretKey, authURL });
+    const isAuthOps = AuthenticationOptions_Schema.safeParse({
+        authURL,
+        UAID,
+        secretKey,
+    });
+
+    if (!isAuthOps.success) {
+        return fillInCredentials({
+            success: false,
+            message: 'Configuration Error',
+            data: undefined,
+        });
+    }
+
+    const authResponse = await fetchToken(isAuthOps.data);
 
     // Invalid response from server
     if (!authResponse) {
