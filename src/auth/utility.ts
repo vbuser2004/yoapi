@@ -20,6 +20,7 @@ const fillInCredentials = (
 
 // Checks to see if current jwt is still valid
 const isJwtExpired = (authExpire: number): boolean => {
+    console.log(authExpire);
     if (authExpire < 0) return true;
 
     const timeDiff: number = authExpire - Math.floor(new Date().getTime());
@@ -34,9 +35,7 @@ const isRefreshToken = (credentials: Credentials): boolean => {
     // Check if valid credentials
     const creds = CredentialsResponse_Schema.safeParse(credentials);
 
-    if (creds.success) return true;
-
-    return false;
+    return creds.success;
 };
 
 // Updats time Authentication jwt expires, less the offset percentage
@@ -54,10 +53,13 @@ const getExpiresIn = (
         internal_offSet = offSet;
     }
 
+    const exp_in = expires_in * 1000; // Converts expires seconds to milliseconds
+
     // Calculate new expires in by taking the offset % to reduce the additional time.
     const new_expires_In =
-        request_time + expires_in * ((100 - internal_offSet) / 100);
+        request_time + exp_in * ((100 - internal_offSet) / 100);
 
+    console.log('New Expires In: ' + new_expires_In);
     return new_expires_In;
 };
 

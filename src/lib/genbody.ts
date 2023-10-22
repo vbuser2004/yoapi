@@ -19,8 +19,6 @@ export const generateBody = (
 
     const isBDDPRequest = baseBDDPRequest.safeParse(body);
 
-    console.log('Body: ' + JSON.stringify(isBDDPRequest, null, 3));
-
     if (!isBDDPRequest.success) throw new Error('Invalid Request Body Data');
 
     return isBDDPRequest.data;
