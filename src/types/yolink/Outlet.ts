@@ -102,6 +102,10 @@ export const bDDP_Outlet_setSchedules_Schema = baseBDDP_Schema.extend({
     }),
 });
 
+export type bDDP_Outlet_setSchedules = z.infer<
+    typeof bDDP_Outlet_setSchedules_Schema
+>;
+
 // BUDP Outlet.setSchedules
 // Note: Same at getSchedules
 export type bUDP_Outlet_setSchedules = z.infer<
@@ -140,3 +144,7 @@ export const bUDP_Outlet_startUpgrade_Schema = baseBUDP_Schema.extend({
         isStarted: z.boolean(),
     }),
 });
+
+export type bUDP_Outlet_startUpgrade = z.infer<
+    typeof bUDP_Outlet_getVersion_Schema
+>;

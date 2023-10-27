@@ -7,6 +7,7 @@ import {
 
 import { Authenticated } from './auth/index.js';
 import { sendRequest } from './lib/client.js';
+import * as Outlet from './lib/devices/yolink/Outlet.js';
 
 class yoyoApi {
     // VARIABLES
@@ -52,7 +53,6 @@ class yoyoApi {
     }
 
     // FUNCTIONS
-
     async ManualAuthentication(): Promise<boolean> {
         const isAuthenticated: boolean = await Authenticated();
         return isAuthenticated;
@@ -61,10 +61,19 @@ class yoyoApi {
     async SendRequest(
         method: string,
         msgid: string,
-        deviceId: string,
+        targetDevice: string,
         token: string
     ): Promise<string> {
-        return sendRequest(method, msgid, deviceId, token);
+        const time = new Date().getTime().toString();
+        const resp = await Outlet.getState({
+            time,
+            method,
+            msgid,
+            targetDevice,
+            token,
+        });
+
+        return JSON.stringify(resp);
     }
 }
 
