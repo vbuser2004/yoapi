@@ -6,7 +6,6 @@ import {
 } from './types/Authentication.js';
 
 import { Authenticated } from './auth/index.js';
-import { sendRequest } from './lib/client.js';
 import * as Outlet from './lib/devices/yolink/Outlet.js';
 
 class yoyoApi {
