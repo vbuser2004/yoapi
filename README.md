@@ -14,8 +14,9 @@ yoyoAPI is an open source wrapper that facilitates the use of the [YoSmart API](
 
 ## Technology
 
-yoyoAPI is written in TypeScript. Every effort has been made to minimize the number of external packages used, and instead, favor native JavaScript methods (such as fetch()). Other packages and tools are listed below:
+Every effort has been made to minimize the number of external packages used, and instead, favor native JavaScript methods (such as fetch()). Other packages and tools are listed below:
 
+* [Typescript](https://www.typescriptlang.org/)
 * [Zod](https://zod.dev) 
 * [Bruno Opensource API Client](https://www.usebruno.com)
 

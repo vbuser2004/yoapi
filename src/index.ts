@@ -7,6 +7,7 @@ import {
 
 import { Authenticated } from './auth/index.js';
 import Outlet from './lib/devices/yolink/Outlet/index.js';
+import { DeviceType } from './types/yolink/Device.js';
 
 class yoyoApi {
     // VARIABLES
@@ -57,26 +58,6 @@ class yoyoApi {
         return isAuthenticated;
     }
 
-    Outlet(
-        targetDevice: string,
-        token: string,
-        name: string,
-        type: string,
-        modelName: string,
-        parentDeviceId?: string
-    ): Outlet {
-        const outlet = new Outlet(
-            targetDevice,
-            token,
-            name,
-            token,
-            type,
-            modelName,
-            (parentDeviceId = undefined)
-        );
-        return outlet;
-    }
-
     // async SendRequest(
     //   method: string,
     //   msgid: string,
@@ -94,6 +75,12 @@ class yoyoApi {
 
     //   return JSON.stringify(resp);
     // }
+
+    // DEVICES
+    Outlet(deviceDetails: DeviceType): Outlet {
+        const outlet = new Outlet(deviceDetails);
+        return outlet;
+    }
 }
 
 export default yoyoApi;

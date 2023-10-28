@@ -1,3 +1,5 @@
+import { DeviceType } from '../../../../types/yolink/Device.js';
+
 class Device {
     readonly deviceId: string;
     readonly deviceUDID: string;
@@ -7,24 +9,16 @@ class Device {
     readonly modelName: string;
     readonly parentDeviceId?: string;
 
-    constructor(
-        deviceId: string,
-        deviceUDID: string,
-        name: string,
-        token: string,
-        type: string,
-        modelName: string,
-        parentDeviceId?: string
-    ) {
-        this.deviceId = deviceId;
-        this.deviceUDID = deviceUDID;
-        this.name = name;
-        this.token = token;
-        this.type = type;
-        this.modelName = modelName;
+    constructor(deviceDetails: DeviceType) {
+        this.deviceId = deviceDetails.deviceId;
+        this.deviceUDID = deviceDetails.deviceUDID;
+        this.name = deviceDetails.name;
+        this.token = deviceDetails.token;
+        this.type = deviceDetails.type;
+        this.modelName = deviceDetails.modelName;
 
-        if (parentDeviceId !== undefined) {
-            this.parentDeviceId = parentDeviceId;
+        if (deviceDetails.parentDeviceId !== undefined) {
+            this.parentDeviceId = deviceDetails.parentDeviceId;
         }
     }
 }
