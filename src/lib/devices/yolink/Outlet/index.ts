@@ -1,24 +1,15 @@
+import Device from '../Device/index.js';
 import { sendRequest } from '../../../client.js';
 import * as OutletTypes from '../../../../types/yolink/Outlet.js';
 
-class Outlet {
-    public targetDevice: string;
-    public token: string;
-
-    // CONSTRUCTOR
-    constructor(targetDevice: string, token: string) {
-        this.targetDevice = targetDevice;
-        this.token = token;
-    }
-
+class Outlet extends Device {
     // FUNCTIONS
-
     getState = async (
         time: string
     ): Promise<OutletTypes.bUDP_Outlet_getState> => {
         const resp = await sendRequest({
             time,
-            targetDevice: this.targetDevice,
+            targetDevice: this.deviceId,
             token: this.token,
             method: 'Outlet.getState',
         });

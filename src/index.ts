@@ -57,8 +57,23 @@ class yoyoApi {
         return isAuthenticated;
     }
 
-    Outlet(targetDevice: string, token: string): Outlet {
-        const outlet = new Outlet(targetDevice, token);
+    Outlet(
+        targetDevice: string,
+        token: string,
+        name: string,
+        type: string,
+        modelName: string,
+        parentDeviceId?: string
+    ): Outlet {
+        const outlet = new Outlet(
+            targetDevice,
+            token,
+            name,
+            token,
+            type,
+            modelName,
+            (parentDeviceId = undefined)
+        );
         return outlet;
     }
 
