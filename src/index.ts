@@ -1,85 +1,84 @@
 import {
-  Credentials,
-  AuthenticationOptions_Schema,
-  AuthenticationOptions,
-  ApiUrl_Schema,
-} from "./types/Authentication.js";
+    Credentials,
+    AuthenticationOptions_Schema,
+    AuthenticationOptions,
+    ApiUrl_Schema,
+} from './types/Authentication.js';
 
-import { Authenticated } from "./auth/index.js";
-import * as OutletFunctions from "./lib/devices/yolink/Outlet.js";
-import Outlet from "./lib/devices/yolink/Outlet/index.js";
+import { Authenticated } from './auth/index.js';
+import Outlet from './lib/devices/yolink/Outlet/index.js';
 
 class yoyoApi {
-  // VARIABLES
-  static Credentials: Credentials;
-  static ApiURL: string;
-  static AuthenticationURL: string;
-  static AuthOptions: AuthenticationOptions;
-  static AuthExpire: number = -1; //Expiration time of the current credentials - defaults to 0
-  static OffSet: number;
+    // VARIABLES
+    static Credentials: Credentials;
+    static ApiURL: string;
+    static AuthenticationURL: string;
+    static AuthOptions: AuthenticationOptions;
+    static AuthExpire: number = -1; //Expiration time of the current credentials - defaults to 0
+    static OffSet: number;
 
-  // CONSTRUCTOR
-  constructor(
-    UAID: string,
-    SecretKey: string,
-    AuthenticationURL: string = "https://api.yosmart.com/open/yolink/token",
-    ApiURL: string = "https://api.yosmart.com/open/yolink/v2/api",
-    OffSetPercentage: number = 20
-  ) {
-    // Validate Authentication Details
-    const isAuthOptions = AuthenticationOptions_Schema.safeParse({
-      UAID,
-      secretKey: SecretKey,
-      authURL: AuthenticationURL,
-    });
+    // CONSTRUCTOR
+    constructor(
+        UAID: string,
+        SecretKey: string,
+        AuthenticationURL: string = 'https://api.yosmart.com/open/yolink/token',
+        ApiURL: string = 'https://api.yosmart.com/open/yolink/v2/api',
+        OffSetPercentage: number = 20
+    ) {
+        // Validate Authentication Details
+        const isAuthOptions = AuthenticationOptions_Schema.safeParse({
+            UAID,
+            secretKey: SecretKey,
+            authURL: AuthenticationURL,
+        });
 
-    // Assign Authentication Options
-    if (isAuthOptions.success) {
-      yoyoApi.AuthOptions = isAuthOptions.data;
-      yoyoApi.AuthenticationURL = isAuthOptions.data.authURL;
-    } else {
-      throw new Error("Invalid Authentication Details");
+        // Assign Authentication Options
+        if (isAuthOptions.success) {
+            yoyoApi.AuthOptions = isAuthOptions.data;
+            yoyoApi.AuthenticationURL = isAuthOptions.data.authURL;
+        } else {
+            throw new Error('Invalid Authentication Details');
+        }
+
+        const isApiUrl = ApiUrl_Schema.safeParse(ApiURL);
+
+        if (isApiUrl.success) {
+            yoyoApi.ApiURL = isApiUrl.data;
+        } else {
+            throw new Error('Invalid API Url');
+        }
+
+        yoyoApi.OffSet = OffSetPercentage;
     }
 
-    const isApiUrl = ApiUrl_Schema.safeParse(ApiURL);
-
-    if (isApiUrl.success) {
-      yoyoApi.ApiURL = isApiUrl.data;
-    } else {
-      throw new Error("Invalid API Url");
+    // FUNCTIONS
+    async ManualAuthentication(): Promise<boolean> {
+        const isAuthenticated: boolean = await Authenticated();
+        return isAuthenticated;
     }
 
-    yoyoApi.OffSet = OffSetPercentage;
-  }
+    Outlet(targetDevice: string, token: string): Outlet {
+        const outlet = new Outlet(targetDevice, token);
+        return outlet;
+    }
 
-  // FUNCTIONS
-  async ManualAuthentication(): Promise<boolean> {
-    const isAuthenticated: boolean = await Authenticated();
-    return isAuthenticated;
-  }
+    // async SendRequest(
+    //   method: string,
+    //   msgid: string,
+    //   targetDevice: string,
+    //   token: string
+    // ): Promise<string> {
+    //   const time = new Date().getTime().toString();
+    //   const resp = await Outlet.getState({
+    //     time,
+    //     method,
+    //     msgid,
+    //     targetDevice,
+    //     token,
+    //   });
 
-  Outlet(targetDevice: string, token: string, params: string): Outlet {
-    const outlet = new Outlet(targetDevice, token, params);
-    return outlet;
-  }
-
-  async SendRequest(
-    method: string,
-    msgid: string,
-    targetDevice: string,
-    token: string
-  ): Promise<string> {
-    const time = new Date().getTime().toString();
-    const resp = await OutletFunctions.getState({
-      time,
-      method,
-      msgid,
-      targetDevice,
-      token,
-    });
-
-    return JSON.stringify(resp);
-  }
+    //   return JSON.stringify(resp);
+    // }
 }
 
 export default yoyoApi;

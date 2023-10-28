@@ -1,23 +1,14 @@
-import { baseBDDPRequest } from '../types/BasicDataPacket.js';
+import { baseBDDP, baseBDDPRequest } from '../types/BasicDataPacket.js';
 
 // Generate body to transmit to API
-export const generateBody = (
-    method: string,
-    msgid: string = new Date().getTime().toString(),
-    targetDevice?: string,
-    token?: string,
-    params?: string
-) => {
+export const generateBody = (packet: baseBDDP) => {
+    // Construct body and add time
     const body = {
-        method,
+        ...packet,
         time: new Date().getTime().toString(),
-        msgid,
-        targetDevice,
-        token,
-        params,
     };
 
-    const isBDDPRequest = baseBDDPRequest.safeParse(body);
+    const isBDDPRequest = baseBDDPRequest.partial().safeParse(body);
 
     if (!isBDDPRequest.success) throw new Error('Invalid Request Body Data');
 
