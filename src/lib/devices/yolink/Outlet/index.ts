@@ -15,6 +15,8 @@ class Outlet extends Device {
         const outletState =
             OutletTypes.bUDP_Outlet_getState_Schema.safeParse(resp);
 
+        console.log('error: ' + JSON.stringify(outletState));
+
         if (!outletState.success) throw new Error('Invalid Server Response');
 
         return outletState.data;

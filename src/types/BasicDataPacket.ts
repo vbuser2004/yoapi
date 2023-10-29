@@ -17,7 +17,7 @@ export type baseBDDP = z.infer<typeof baseBDDP_Schema>;
 export const baseBUDP_Schema = z.object({
     time: z.number(),
     method: z.string(),
-    msgid: z.string().optional(),
+    msgid: z.number().optional(),
     code: z.string(),
     desc: z.string().optional(),
 });

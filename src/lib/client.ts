@@ -36,8 +36,6 @@ export const sendRequest = async <T extends baseBDDP>(bddpPacket: T) => {
 
     const isValidDataResp = baseBUDP_Schema.partial().safeParse(dataResp);
 
-    console.log('error: ' + JSON.stringify(isValidDataResp));
-
     if (!isValidDataResp.success) throw new Error('Invalid Response Format');
 
     return isValidDataResp.data;
