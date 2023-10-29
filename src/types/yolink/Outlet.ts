@@ -28,7 +28,7 @@ export type bUDP_Outlet_getState = z.infer<typeof bUDP_Outlet_getState_Schema>;
 // BDDP Outlet.setState
 export const bDDP_Outlet_setState_Schema = baseBDDP_Schema.extend({
     params: z.object({
-        state: z.enum(['open', 'closed']),
+        state: z.enum(['open', 'close']),
     }),
 });
 export type bDDP_Outlet_setState = z.infer<typeof bDDP_Outlet_setState_Schema>;

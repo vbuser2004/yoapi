@@ -27,16 +27,10 @@ export const Authenticated = async (): Promise<boolean> => {
     // Check if current Auth has expired
     const hasExpired = authutil.isJwtExpired(authExpires);
 
-    console.log('hasExpired: ' + hasExpired);
-
     if (!hasExpired) return true;
 
     // Check if refresh token exists
     const refreshTokenExists = authutil.isRefreshToken(creds);
-
-    console.log(
-        refreshTokenExists + ' yoyoApi: ' + JSON.stringify(yoyoApi.Credentials)
-    );
 
     if (refreshTokenExists) {
         // Get new token

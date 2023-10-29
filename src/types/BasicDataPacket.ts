@@ -17,16 +17,16 @@ export type baseBDDP = z.infer<typeof baseBDDP_Schema>;
 export const baseBUDP_Schema = z.object({
     time: z.number(),
     method: z.string(),
-    msgid: z.number().optional(),
+    msgid: z.string().optional(),
     code: z.string(),
     desc: z.string().optional(),
 });
 
 export type baseBUDP = z.infer<typeof baseBUDP_Schema>;
 
-export const baseBDDPRequest = baseBDDP_Schema.extend({
-    params: z.string().optional(),
-});
+// export const baseBDDPRequest = baseBDDP_Schema.extend({
+//     params: z.string().optional(),
+// });
 
 // Error Codes
 // {

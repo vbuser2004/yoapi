@@ -1,4 +1,4 @@
-import { baseBDDP, baseBDDPRequest } from '../types/BasicDataPacket.js';
+import { baseBDDP, baseBDDP_Schema } from '../types/BasicDataPacket.js';
 
 // Generate body to transmit to API
 export const generateBody = (packet: baseBDDP) => {
@@ -8,9 +8,9 @@ export const generateBody = (packet: baseBDDP) => {
         time: new Date().getTime().toString(),
     };
 
-    const isBDDPRequest = baseBDDPRequest.partial().safeParse(body);
+    const isBDDPRequest = baseBDDP_Schema.partial().safeParse(body);
 
     if (!isBDDPRequest.success) throw new Error('Invalid Request Body Data');
 
-    return isBDDPRequest.data;
+    return body;
 };

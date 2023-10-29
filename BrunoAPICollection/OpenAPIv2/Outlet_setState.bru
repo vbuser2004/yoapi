@@ -1,0 +1,30 @@
+meta {
+  name: Outlet_setState
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{deviceURL}}
+  body: json
+  auth: bearer
+}
+
+headers {
+  Content-Type: application/json
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+body:json {
+  {
+    "method": "Outlet.setState",
+    "targetDevice": "{{OUTLET_TARGET_DEV}}",
+    "token": "{{OUTLET_TOKEN}}",
+    "params": {
+      "state": "close"
+    }
+  }
+}
