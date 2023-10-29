@@ -1,8 +1,8 @@
-import yoyoApi from '../index.js';
-import { baseBDDP, baseBUDP_Schema } from '../types/BasicDataPacket.js';
-import { Authenticated } from '../auth/index.js';
+import yoyoApi from '../../index.js';
+import { baseBDDP, baseBUDP_Schema } from '../../types/BasicDataPacket.js';
+import { Authenticated } from '../../auth/index.js';
 import { generateBody } from './genbody.js';
-import { ApiError_Schema } from '../types/ApiError.js';
+import { ApiError_Schema } from '../../types/ApiError.js';
 
 // Send request to API
 export const sendRequest = async <T extends baseBDDP>(bddpPacket: T) => {

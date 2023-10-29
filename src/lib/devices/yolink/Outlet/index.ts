@@ -1,5 +1,5 @@
 import Device from '../Device/index.js';
-import { sendRequest } from '../../../client.js';
+import { sendRequest } from '../../../request/client.js';
 import * as OutletTypes from '../../../../types/yolink/Outlet.js';
 import { ApiError } from '../../../../types/ApiError.js';
 

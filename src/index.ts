@@ -9,6 +9,7 @@ import { Authenticated } from './auth/index.js';
 import Outlet from './lib/devices/yolink/Outlet/index.js';
 import { DeviceType } from './types/yolink/Device.js';
 import MotionSensor from './lib/devices/yolink/MotionSensor/index.js';
+import Home from './lib/devices/yolink/Home/index.js';
 
 class yoyoApi {
     // VARIABLES
@@ -57,6 +58,12 @@ class yoyoApi {
     async ManualAuthentication(): Promise<boolean> {
         const isAuthenticated: boolean = await Authenticated();
         return isAuthenticated;
+    }
+
+    // HOME
+    Home(): Home {
+        const home = new Home();
+        return home;
     }
 
     // DEVICES

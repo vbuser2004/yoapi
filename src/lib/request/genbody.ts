@@ -1,4 +1,4 @@
-import { baseBDDP, baseBDDP_Schema } from '../types/BasicDataPacket.js';
+import { baseBDDP, baseBDDP_Schema } from '../../types/BasicDataPacket.js';
 
 // Generate body to transmit to API
 export const generateBody = (packet: baseBDDP) => {

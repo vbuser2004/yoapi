@@ -12,5 +12,3 @@ export const Device_Schema = z.object({
 });
 
 export type DeviceType = z.infer<typeof Device_Schema>;
-
-export type DeviceTypeList = DeviceType[];

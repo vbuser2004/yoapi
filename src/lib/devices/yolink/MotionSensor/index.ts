@@ -1,6 +1,6 @@
 import Device from '../Device/index.js';
 import * as MotionSensorTypes from '../../../../types/yolink/MotionSensor.js';
-import { sendRequest } from '../../../client.js';
+import { sendRequest } from '../../../request/client.js';
 
 class MotionSensor extends Device {
     // FUNCTIONS
