@@ -8,6 +8,7 @@ import {
 import { Authenticated } from './auth/index.js';
 import Outlet from './lib/devices/yolink/Outlet/index.js';
 import { DeviceType } from './types/yolink/Device.js';
+import MotionSensor from './lib/devices/yolink/MotionSensor/index.js';
 
 class yoyoApi {
     // VARIABLES
@@ -58,28 +59,15 @@ class yoyoApi {
         return isAuthenticated;
     }
 
-    // async SendRequest(
-    //   method: string,
-    //   msgid: string,
-    //   targetDevice: string,
-    //   token: string
-    // ): Promise<string> {
-    //   const time = new Date().getTime().toString();
-    //   const resp = await Outlet.getState({
-    //     time,
-    //     method,
-    //     msgid,
-    //     targetDevice,
-    //     token,
-    //   });
-
-    //   return JSON.stringify(resp);
-    // }
-
     // DEVICES
     Outlet(deviceDetails: DeviceType): Outlet {
         const outlet = new Outlet(deviceDetails);
         return outlet;
+    }
+
+    MotionSensor(deviceDetails: DeviceType): MotionSensor {
+        const motionsensor = new MotionSensor(deviceDetails);
+        return motionsensor;
     }
 }
 

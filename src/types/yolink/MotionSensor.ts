@@ -5,7 +5,7 @@ import { baseBDDP_Schema, baseBUDP_Schema } from '../BasicDataPacket.js';
 export type bDDP_MotionSensor_getState = z.infer<typeof baseBDDP_Schema>;
 
 // BUDP MotionSensor.getState
-const bUDP_MotionSensor_getState_Schema = baseBUDP_Schema.extend({
+export const bUDP_MotionSensor_getState_Schema = baseBUDP_Schema.extend({
     data: z.object({
         state: z.object({
             online: z.boolean(),

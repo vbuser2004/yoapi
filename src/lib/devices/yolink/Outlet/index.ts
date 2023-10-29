@@ -4,11 +4,9 @@ import * as OutletTypes from '../../../../types/yolink/Outlet.js';
 
 class Outlet extends Device {
     // FUNCTIONS
-    getState = async (
-        time: string
-    ): Promise<OutletTypes.bUDP_Outlet_getState> => {
+    getState = async (): Promise<OutletTypes.bUDP_Outlet_getState> => {
         const resp = await sendRequest({
-            time,
+            time: new Date().getTime().toString(),
             targetDevice: this.deviceId,
             token: this.token,
             method: 'Outlet.getState',
