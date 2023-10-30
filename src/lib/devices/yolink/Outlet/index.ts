@@ -7,27 +7,47 @@ import { getDaysOfWeekMask } from "../../../utility/daysofweek.js";
 
 class Outlet extends Device {
   // FUNCTIONS
-  getState = async (
+  sendOutletRequest = async (
+    method: string,
+    params: object = {},
     msgid: string = new Date().getTime().toString()
-  ): Promise<OutletTypes.bUDP_Outlet_getState | ApiError> => {
-    const safeResp = await sendRequest({
+  ) => {
+    const msgBody = {
       targetDevice: this.deviceId,
       token: this.token,
-      method: "Outlet.getState",
+      method: `Outlet.${method}`,
       msgid,
-    });
+      params,
+    };
+
+    // Ignore 'any' error as schema will be present
+    const isValidBody =
+      // @ts-ignore
+      OutletTypes[`bDDP_Outlet_${method}_Schema`].safeParse(msgBody);
+
+    // Check to make sure body is type safe
+    if (!isValidBody.success) throw new Error("Invalid Request Body");
+
+    // Send request
+    const safeResp = await sendRequest(msgBody);
 
     // If error send error data
     if (!safeResp.success) return safeResp.data;
 
-    // Not an error so Verify it is valid Outlet response
-    const outletState = OutletTypes.bUDP_Outlet_getState_Schema.safeParse(
+    //@ts-ignore ignore 'any' error as schema will be present
+    const outletState = OutletTypes[`bUDP_Outlet_${method}_Schema`].safeParse(
       safeResp.data
     );
 
     if (!outletState.success) throw new Error("Invalid Server Response");
 
     return outletState.data;
+  };
+
+  getState = async (
+    msgid?: string
+  ): Promise<OutletTypes.bUDP_Outlet_getState | ApiError> => {
+    return await this.sendOutletRequest("getState", {}, msgid);
   };
 
   setState = async (
