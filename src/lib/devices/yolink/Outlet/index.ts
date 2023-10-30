@@ -1,92 +1,137 @@
-import Device from '../Device/index.js';
-import { sendRequest } from '../../../request/client.js';
-import * as OutletTypes from '../../../../types/yolink/Outlet.js';
-import { ApiError } from '../../../../types/ApiError.js';
+import Device from "../Device/index.js";
+import { sendRequest } from "../../../request/client.js";
+import * as OutletTypes from "../../../../types/yolink/Outlet.js";
+import { ApiError } from "../../../../types/ApiError.js";
+
+import { getDaysOfWeekMask } from "../../../utility/daysofweek.js";
 
 class Outlet extends Device {
-    // FUNCTIONS
-    getState = async (
-        msgid: string = new Date().getTime().toString()
-    ): Promise<OutletTypes.bUDP_Outlet_getState | ApiError> => {
-        const safeResp = await sendRequest({
-            time: new Date().getTime().toString(),
-            targetDevice: this.deviceId,
-            token: this.token,
-            method: 'Outlet.getState',
-            msgid,
-        });
+  // FUNCTIONS
+  getState = async (
+    msgid: string = new Date().getTime().toString()
+  ): Promise<OutletTypes.bUDP_Outlet_getState | ApiError> => {
+    const safeResp = await sendRequest({
+      targetDevice: this.deviceId,
+      token: this.token,
+      method: "Outlet.getState",
+      msgid,
+    });
 
-        // If error send error data
-        if (!safeResp.success) return safeResp.data;
+    // If error send error data
+    if (!safeResp.success) return safeResp.data;
 
-        // Not an error so Verify it is valid Outlet response
-        const outletState = OutletTypes.bUDP_Outlet_getState_Schema.safeParse(
-            safeResp.data
-        );
+    // Not an error so Verify it is valid Outlet response
+    const outletState = OutletTypes.bUDP_Outlet_getState_Schema.safeParse(
+      safeResp.data
+    );
 
-        if (!outletState.success) throw new Error('Invalid Server Response');
+    if (!outletState.success) throw new Error("Invalid Server Response");
 
-        return outletState.data;
+    return outletState.data;
+  };
+
+  setState = async (
+    state: string,
+    msgid: string = new Date().getTime().toString()
+  ): Promise<OutletTypes.bUDP_Outlet_setState | ApiError> => {
+    const msgBody = {
+      targetDevice: this.deviceId,
+      token: this.token,
+      method: "Outlet.setState",
+      msgid,
+      params: { state },
     };
 
-    setState = async (
-        state: string,
-        msgid: string = new Date().getTime().toString()
-    ): Promise<OutletTypes.bUDP_Outlet_setState | ApiError> => {
-        const msgBody = {
-            time: new Date().getTime().toString(),
-            targetDevice: this.deviceId,
-            token: this.token,
-            method: 'Outlet.setState',
-            msgid,
-            params: { state },
-        };
+    const isValidBody =
+      OutletTypes.bDDP_Outlet_setState_Schema.safeParse(msgBody);
 
-        console.log('Message body: ' + JSON.stringify(msgBody, null, 3));
+    // Check to make sure body is type safe
+    if (!isValidBody.success) throw new Error("Invalid Request Body");
 
-        const isValidBody =
-            OutletTypes.bDDP_Outlet_setState_Schema.safeParse(msgBody);
+    // Send request
+    const safeResp = await sendRequest(msgBody);
 
-        console.log('Message Body Error: ' + JSON.stringify(isValidBody));
+    // If error send error data
+    if (!safeResp.success) return safeResp.data;
 
-        // Check to make sure body is type safe
-        if (!isValidBody.success) throw new Error('Invalid Request Body');
+    // Not an error so Verify it is valid Outlet response
+    const outletState = OutletTypes.bUDP_Outlet_setState_Schema.safeParse(
+      safeResp.data
+    );
 
-        // Send request
-        const safeResp = await sendRequest(msgBody);
+    if (!outletState.success) throw new Error("Invalid Server Response");
 
-        // If error send error data
-        if (!safeResp.success) return safeResp.data;
+    return outletState.data;
+  };
 
-        // Not an error so Verify it is valid Outlet response
-        const outletState = OutletTypes.bUDP_Outlet_setState_Schema.safeParse(
-            safeResp.data
-        );
-
-        if (!outletState.success) throw new Error('Invalid Server Response');
-
-        return outletState.data;
+  setDelay = async (
+    delayOn: number = 0,
+    delayOff: number = 0,
+    msgid: string = new Date().getTime().toString()
+  ): Promise<OutletTypes.bUDP_Outlet_setDelay | ApiError> => {
+    const msgBody = {
+      targetDevice: this.deviceId,
+      token: this.token,
+      method: "Outlet.setDelay",
+      msgid,
+      params: { delayOn, delayOff },
     };
 
-    // export const setDelay = async (
-    //     setDelayOptions: Outlet.bDDP_Outlet_setDelay
-    // ): Promise<Outlet.bDDP_Outlet_setDelay> => {};
+    const isValidBody =
+      OutletTypes.bDDP_Outlet_setDelay_Schema.safeParse(msgBody);
 
-    // export const getSchedules = async (
-    //     getSchedulesOptions: Outlet.bDDP_Outlet_getSchedules
-    // ): Promise<Outlet.bUDP_Outlet_getSchedules> => {};
+    // Check to make sure body is type safe
+    if (!isValidBody.success) throw new Error("Invalid Request Body");
 
-    // export const setSchedules = async (
-    //     setSchedulesOptions: Outlet.bDDP_Outlet_setSchedules
-    // ): Promise<Outlet.bUDP_Outlet_setSchedules> => {};
+    const safeResp = await sendRequest(msgBody);
 
-    // export const getVersion = async (
-    //     getVersionOptions: Outlet.bDDP_Outlet_getVersion
-    // ): Promise<Outlet.bDDP_Outlet_getVersion> => {};
+    // If error send error data
+    if (!safeResp.success) return safeResp.data;
 
-    // export const startUpgrade = async (
-    //     startUpgradeOptions: Outlet.bDDP_Outlet_startUpgrade
-    // ): Promise<Outlet.bUDP_Outlet_startUpgrade> => {};
+    // Not an error so Verify it is valid Outlet response
+    const outletState = OutletTypes.bUDP_Outlet_setDelay_Schema.safeParse(
+      safeResp.data
+    );
+
+    if (!outletState.success) throw new Error("Invalid Server Response");
+
+    return outletState.data;
+  };
+
+  getSchedules = async (
+    msgid: string = new Date().getTime().toString()
+  ): Promise<OutletTypes.bUDP_Outlet_getSchedules | ApiError> => {
+    const safeResp = await sendRequest({
+      targetDevice: this.deviceId,
+      token: this.token,
+      method: "Outlet.getSchedules",
+      msgid,
+    });
+
+    // If error send error data
+    if (!safeResp.success) return safeResp.data;
+
+    // Not an error so Verify it is valid Outlet response
+    const outletState = OutletTypes.bUDP_Outlet_getSchedules_Schema.safeParse(
+      safeResp.data
+    );
+
+    if (!outletState.success) throw new Error("Invalid Server Response");
+
+    return outletState.data;
+  };
+
+  // export const setSchedules = async (
+  //     setSchedulesOptions: Outlet.bDDP_Outlet_setSchedules
+  // ): Promise<Outlet.bUDP_Outlet_setSchedules> => {};
+
+  // export const getVersion = async (
+  //     getVersionOptions: Outlet.bDDP_Outlet_getVersion
+  // ): Promise<Outlet.bUDP_Outlet_getVersion> => {};
+
+  // export const startUpgrade = async (
+  //     startUpgradeOptions: Outlet.bDDP_Outlet_startUpgrade
+  // ): Promise<Outlet.bUDP_Outlet_startUpgrade> => {};
 }
 
 export default Outlet;
