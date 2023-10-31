@@ -91,22 +91,40 @@ export type bUDP_Outlet_getSchedules = z.infer<
 // BDDP Outlet.setSchedules
 export const bDDP_Outlet_setSchedules_Schema = baseBDDP_Schema.extend({
     params: z.object({
-        sches: z.record(
-            z.number(),
-            z.object({
-                isValid: z.boolean(),
-                index: z.number(),
-                on: z.string().optional(),
-                off: z.string().optional(),
-                week: z.number(),
-            })
-        ),
+        sches: z
+            .record(
+                z.number(),
+                z.object({
+                    isValid: z.boolean(),
+                    index: z.number(),
+                    on: z.string().optional(),
+                    off: z.string().optional(),
+                    week: z.number(),
+                })
+            )
+            .array(),
     }),
 });
 
 export type bDDP_Outlet_setSchedules = z.infer<
     typeof bDDP_Outlet_setSchedules_Schema
 >;
+
+// Set Schedule Parameter Schema
+export const sches_Schema = z
+    .record(
+        z.number(),
+        z.object({
+            isValid: z.boolean(),
+            index: z.number(),
+            on: z.string().optional(),
+            off: z.string().optional(),
+            week: z.number(),
+        })
+    )
+    .array();
+
+export type sches = z.infer<typeof sches_Schema>;
 
 // BUDP Outlet.setSchedules
 // Note: Same at getSchedules

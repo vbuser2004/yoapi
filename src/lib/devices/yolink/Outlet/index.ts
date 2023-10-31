@@ -3,8 +3,6 @@ import { sendRequest } from '../../../request/client.js';
 import * as OutletTypes from '../../../../types/yolink/Outlet.js';
 import { ApiError } from '../../../../types/ApiError.js';
 
-import { getDaysOfWeekMask } from '../../../utility/daysofweek.js';
-
 class Outlet extends Device {
     // FUNCTIONS
     sendOutletRequest = async (
@@ -70,14 +68,32 @@ class Outlet extends Device {
     };
 
     getSchedules = async (
-        msgid: string = new Date().getTime().toString()
+        msgid?: string
     ): Promise<OutletTypes.bUDP_Outlet_getSchedules | ApiError> => {
         return await this.sendOutletRequest('getSchedules', {}, msgid);
     };
 
-    // export const setSchedules = async (
-    //     setSchedulesOptions: Outlet.bDDP_Outlet_setSchedules
-    // ): Promise<Outlet.bUDP_Outlet_setSchedules> => {};
+    //     Param	Value	Desc
+    // method	Outlet.setSchedules	Set Schedule.
+    // targetDevice	<String,Necessary>	DeviceId of the Outlet you use;
+    // token	<String,Necessary>	Net token of the Outlet you use;
+    // params.sches	<Array<Schedule>	Map<int,Schedule>,Necessary>
+    // params.sches[index].isValid	<Boolean,Necessary>	Enabled/Disabled ;
+    // params.sches[index].index	<Integer,Necessary>	Index of this record ;
+    // params.sches[index].on	<String,Necessary>	Time to turn on; HH:mm
+    // params.sches[index].off	<String,Necessary>	Time to turn off; HH:mm
+    // params.sches[index].week	<Integer,Necessary>	mask of effected days(Sunday to Saturday)
+
+    setSchedules = async (
+        scheduleList: OutletTypes.sches,
+        msgid?: string
+    ): Promise<OutletTypes.bUDP_Outlet_setSchedules> => {
+        return await this.sendOutletRequest(
+            'setScheduled',
+            { params: { sches: scheduleList } },
+            msgid
+        );
+    };
 
     // export const getVersion = async (
     //     getVersionOptions: Outlet.bDDP_Outlet_getVersion
