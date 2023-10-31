@@ -1,11 +1,4 @@
 export const getDaysOfWeekMask = (days: string[]): number => {
-    // Check if All Week, Weekdays, or Weekends
-    if (days[0]?.toLowerCase() == 'all') return 127;
-
-    if (days[0]?.toLowerCase() == 'weekdays') return 62;
-
-    if (days[0]?.toLowerCase() == 'weekends') return 65;
-
     const dayValues: Record<string, number> = {
         sunday: 1,
         monday: 2,
@@ -16,11 +9,22 @@ export const getDaysOfWeekMask = (days: string[]): number => {
         saturday: 64,
     };
 
-    let mask = 0;
+    let mask: number = -1;
 
-    for (const day of days) {
-        mask += dayValues[day.toLowerCase()]!;
+    try {
+        // Check if All Week, Weekdays, or Weekends
+        if (days[0]?.toLowerCase() == 'all') return 127;
+
+        if (days[0]?.toLowerCase() == 'weekdays') return 62;
+
+        if (days[0]?.toLowerCase() == 'weekends') return 65;
+
+        for (const day of days) {
+            mask += dayValues[day.toLowerCase()]!;
+        }
+    } catch {
+        return -1;
     }
 
-    return mask;
+    return isNaN(mask) ? -1 : mask;
 };
