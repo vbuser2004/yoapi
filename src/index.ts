@@ -10,6 +10,7 @@ import Outlet from './lib/devices/yolink/Outlet/index.js';
 import { DeviceType } from './types/yolink/Device.js';
 import MotionSensor from './lib/devices/yolink/MotionSensor/index.js';
 import Home from './lib/devices/yolink/Home/index.js';
+import { getDaysOfWeekMask } from './lib/utility/daysofweek.js';
 
 class yoyoApi {
     // VARIABLES
@@ -61,7 +62,7 @@ class yoyoApi {
     }
 
     getDaysOfWeekMask(daysOfWeek: string[]): number {
-        const mask = this.getDaysOfWeekMask(daysOfWeek);
+        const mask = getDaysOfWeekMask(daysOfWeek);
         return mask;
     }
 
