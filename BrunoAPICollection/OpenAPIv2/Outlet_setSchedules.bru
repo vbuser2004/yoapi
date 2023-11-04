@@ -1,0 +1,49 @@
+meta {
+  name: Outlet_setSchedules
+  type: http
+  seq: 7
+}
+
+post {
+  url: {{deviceURL}}
+  body: json
+  auth: bearer
+}
+
+headers {
+  Content-Type: application/json
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+body:json {
+  {
+      "method": "Outlet.setSchedules",
+      "targetDevice": "{{OUTLET_TARGET_DEV}}",
+      "token": "{{OUTLET_TOKEN}}",
+      "params": {
+          "sches": [
+              {
+                  "0": {
+                      "isValid": true,
+                      "week": 127,
+                      "index": 0,
+                      "on": "19:0",
+                      "off": "23:0"
+                  }
+              },
+              {
+                  "1": {
+                      "isValid": true,
+                      "week": 127,
+                      "index": 1,
+                      "on": "23:12",
+                      "off": "23:24"
+                  }
+              }
+          ]
+      }
+  }
+}

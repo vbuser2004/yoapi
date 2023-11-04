@@ -1,0 +1,27 @@
+meta {
+  name: DoorSensor_getState
+  type: http
+  seq: 8
+}
+
+post {
+  url: {{deviceURL}}
+  body: json
+  auth: bearer
+}
+
+headers {
+  Content-Type: application/json
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+body:json {
+  {
+    "method": "DoorSensor.getState",
+    "targetDevice": "{{DOOR_SENSOR_TARGET_DEV}}",
+    "token": "{{DOOR_SENSOR_TOKEN}}"
+  }
+}

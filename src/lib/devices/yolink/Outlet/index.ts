@@ -1,107 +1,102 @@
-import Device from '../Device/index.js';
-import { sendRequest } from '../../../request/client.js';
-import * as OutletTypes from '../../../../types/yolink/Outlet.js';
-import { ApiError } from '../../../../types/ApiError.js';
+import Device from "../Device/index.js";
+import { sendRequest } from "../../../request/client.js";
+import * as OutletTypes from "../../../../types/yolink/Outlet.js";
+import { ApiError } from "../../../../types/ApiError.js";
+import { getDaysOfWeekMask } from "../../../utility/daysofweek.js";
 
 class Outlet extends Device {
-    // FUNCTIONS
-    sendOutletRequest = async (
-        method: string,
-        params: object = {},
-        msgid: string = new Date().getTime().toString()
-    ) => {
-        const msgBody = {
-            targetDevice: this.deviceId,
-            token: this.token,
-            method: `Outlet.${method}`,
-            msgid,
-            params,
-        };
-
-        // Ignore 'any' error as schema will be present
-        const isValidBody =
-            // @ts-ignore
-            OutletTypes[`bDDP_Outlet_${method}_Schema`].safeParse(msgBody);
-
-        // Check to make sure body is type safe
-        if (!isValidBody.success) throw new Error('Invalid Request Body');
-
-        // Send request
-        const safeResp = await sendRequest(msgBody);
-
-        // If error send error data
-        if (!safeResp.success) return safeResp.data;
-
-        //@ts-ignore ignore 'any' error as schema will be present
-        const outletState = OutletTypes[
-            `bUDP_Outlet_${method}_Schema`
-        ].safeParse(safeResp.data);
-
-        if (!outletState.success) throw new Error('Invalid Server Response');
-
-        return outletState.data;
+  // FUNCTIONS
+  sendOutletRequest = async (
+    method: string,
+    params: object = {},
+    msgid: string = new Date().getTime().toString()
+  ) => {
+    const msgBody = {
+      targetDevice: this.deviceId,
+      token: this.token,
+      method: `Outlet.${method}`,
+      msgid,
+      params,
     };
 
-    getState = async (
-        msgid?: string
-    ): Promise<OutletTypes.bUDP_Outlet_getState | ApiError> => {
-        return await this.sendOutletRequest('getState', {}, msgid);
-    };
+    // Ignore 'any' error as schema will be present
+    const isValidBody =
+      // @ts-ignore
+      OutletTypes[`bDDP_Outlet_${method}_Schema`].safeParse(msgBody);
 
-    setState = async (
-        state: string,
-        msgid?: string
-    ): Promise<OutletTypes.bUDP_Outlet_setState | ApiError> => {
-        return await this.sendOutletRequest('setState', { state }, msgid);
-    };
+    // Check to make sure body is type safe
+    if (!isValidBody.success) throw new Error("Invalid Request Body");
 
-    setDelay = async (
-        delayOn: number = 0,
-        delayOff: number = 0,
-        msgid?: string
-    ): Promise<OutletTypes.bUDP_Outlet_setDelay | ApiError> => {
-        return await this.sendOutletRequest(
-            'setDelay',
-            { delayOn, delayOff },
-            msgid
-        );
-    };
+    // Send request
+    const safeResp = await sendRequest(msgBody);
 
-    getSchedules = async (
-        msgid?: string
-    ): Promise<OutletTypes.bUDP_Outlet_getSchedules | ApiError> => {
-        return await this.sendOutletRequest('getSchedules', {}, msgid);
-    };
+    // If error send error data
+    if (!safeResp.success) return safeResp.data;
 
-    //     Param	Value	Desc
-    // method	Outlet.setSchedules	Set Schedule.
-    // targetDevice	<String,Necessary>	DeviceId of the Outlet you use;
-    // token	<String,Necessary>	Net token of the Outlet you use;
-    // params.sches	<Array<Schedule>	Map<int,Schedule>,Necessary>
-    // params.sches[index].isValid	<Boolean,Necessary>	Enabled/Disabled ;
-    // params.sches[index].index	<Integer,Necessary>	Index of this record ;
-    // params.sches[index].on	<String,Necessary>	Time to turn on; HH:mm
-    // params.sches[index].off	<String,Necessary>	Time to turn off; HH:mm
-    // params.sches[index].week	<Integer,Necessary>	mask of effected days(Sunday to Saturday)
+    //@ts-ignore ignore 'any' error as schema will be present
+    const outletState = OutletTypes[`bUDP_Outlet_${method}_Schema`].safeParse(
+      safeResp.data
+    );
 
-    setSchedules = async (
-        scheduleList: OutletTypes.sches,
-        msgid?: string
-    ): Promise<OutletTypes.bUDP_Outlet_setSchedules> => {
-        return await this.sendOutletRequest(
-            'setScheduled',
-            { params: { sches: scheduleList } },
-            msgid
-        );
-    };
+    if (!outletState.success) throw new Error("Invalid Server Response");
 
-    // export const getVersion = async (
-    //     getVersionOptions: Outlet.bDDP_Outlet_getVersion
-    // ): Promise<Outlet.bUDP_Outlet_getVersion> => {};
+    return outletState.data;
+  };
 
-    // export const startUpgrade = async (
-    //     startUpgradeOptions: Outlet.bDDP_Outlet_startUpgrade
-    // ): Promise<Outlet.bUDP_Outlet_startUpgrade> => {};
+  getState = async (
+    msgid?: string
+  ): Promise<OutletTypes.bUDP_Outlet_getState | ApiError> => {
+    return await this.sendOutletRequest("getState", {}, msgid);
+  };
+
+  setState = async (
+    state: string,
+    msgid?: string
+  ): Promise<OutletTypes.bUDP_Outlet_setState | ApiError> => {
+    return await this.sendOutletRequest("setState", { state }, msgid);
+  };
+
+  setDelay = async (
+    delayOn: number = 0,
+    delayOff: number = 0,
+    msgid?: string
+  ): Promise<OutletTypes.bUDP_Outlet_setDelay | ApiError> => {
+    return await this.sendOutletRequest(
+      "setDelay",
+      { delayOn, delayOff },
+      msgid
+    );
+  };
+
+  getSchedules = async (
+    msgid?: string
+  ): Promise<OutletTypes.bUDP_Outlet_getSchedules | ApiError> => {
+    return await this.sendOutletRequest("getSchedules", {}, msgid);
+  };
+
+  setSchedules = async (
+    scheduleList: OutletTypes.sches,
+    msgid?: string
+  ): Promise<OutletTypes.bUDP_Outlet_setSchedules> => {
+    const finalSchedule = scheduleList.map((sched) => {
+      // Get Mask from weekdays if not already provided
+      if (sched.week <= 0) {
+        const weekMask = getDaysOfWeekMask(sched.weekdays!);
+        delete sched.weekdays;
+        sched.week = weekMask;
+      }
+
+      return { [sched.index]: { ...sched } };
+    });
+
+    return await this.sendOutletRequest(
+      "setSchedules",
+      {
+        sches: finalSchedule,
+      },
+      msgid
+    );
+  };
 }
 
 export default Outlet;

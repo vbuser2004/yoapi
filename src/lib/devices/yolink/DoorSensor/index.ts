@@ -1,16 +1,16 @@
 import Device from "../Device/index.js";
-import * as MotionSensorTypes from "../../../../types/yolink/MotionSensor.js";
+import * as DoorSensorTypes from "../../../../types/yolink/DoorSensor.js";
 import { sendRequest } from "../../../request/client.js";
 
-class MotionSensor extends Device {
+class DoorSensor extends Device {
   // FUNCTIONS
   getState = async (
     msgid: string = new Date().getTime().toString()
-  ): Promise<MotionSensorTypes.bUDP_MotionSensor_getState> => {
+  ): Promise<DoorSensorTypes.bUDP_DoorSensor_getState> => {
     const safeResp = await sendRequest({
       targetDevice: this.deviceId,
       token: this.token,
-      method: "MotionSensor.getState",
+      method: "DoorSensor.getState",
       msgid,
     });
 
@@ -18,10 +18,9 @@ class MotionSensor extends Device {
     if (!safeResp.success) return safeResp.data;
 
     // Not an error so Verify it is valid Motion Sensor response
-    const msState =
-      MotionSensorTypes.bUDP_MotionSensor_getState_Schema.safeParse(
-        safeResp.data
-      );
+    const msState = DoorSensorTypes.bUDP_DoorSensor_getState_Schema.safeParse(
+      safeResp.data
+    );
 
     if (!msState.success) throw new Error("Invalid Server Response");
 
@@ -29,4 +28,4 @@ class MotionSensor extends Device {
   };
 }
 
-export default MotionSensor;
+export default DoorSensor;
