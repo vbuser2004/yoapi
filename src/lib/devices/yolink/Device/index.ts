@@ -18,7 +18,7 @@ class Device {
         this.modelName = deviceDetails.modelName;
 
         if (deviceDetails.parentDeviceId !== undefined) {
-            this.parentDeviceId = deviceDetails.parentDeviceId;
+            this.parentDeviceId = deviceDetails.parentDeviceId!;
         }
     }
 }

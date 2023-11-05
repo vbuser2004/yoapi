@@ -8,7 +8,7 @@ export const Device_Schema = z.object({
     name: z.string(),
     type: z.string(),
     modelName: z.string(),
-    parentDeviceId: z.string().optional(),
+    parentDeviceId: z.string().nullable().optional(),
 });
 
 export type DeviceType = z.infer<typeof Device_Schema>;
