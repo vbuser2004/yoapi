@@ -1,27 +1,27 @@
 {
-    "name": "yoyoapi",
-    "version": "0.0.1",
-    "description": "API Wrapper for YoLink Devices",
-    "type": "module",
-    "scripts": {
-        "build": "tsc",
-        "dev": "tsc && node ./dist/index.js"
-    },
-    "keywords": [
-        "yosmart",
-        "yolink"
-    ],
-    "author": "vbuser2004",
-    "license": "MIT",
-    "devDependencies": {
-        "@types/node": "^20.8.2",
-        "eslint": "^8.50.0",
-        "eslint-config-prettier": "^9.0.0",
-        "prettier": "^3.0.3",
-        "typescript": "^5.2.2"
-    },
-    "dependencies": {
-        "dotenv": "^16.3.1",
-        "zod": "^3.22.4"
-    }
+  "name": "yoyoapi",
+  "version": "0.7.0",
+  "description": "API Wrapper for YoLink Devices",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc && node ./dist/index.js"
+  },
+  "keywords": [
+    "yosmart",
+    "yolink"
+  ],
+  "author": "vbuser2004",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.8.2",
+    "eslint": "^8.50.0",
+    "eslint-config-prettier": "^9.0.0",
+    "prettier": "^3.0.3",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "zod": "^3.22.4"
+  }
 }

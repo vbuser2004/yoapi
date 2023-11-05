@@ -6,20 +6,29 @@ Yolink / Yosmart API Wrapper for Individual Product Users
 
 yoyoAPI is an open source wrapper that facilitates the use of the [YoSmart API](http://doc.yosmart.com) to manage YoLink devices. Specifically, yoyoAPI supports individual product users ([UAC](http://doc.yosmart.com/docs/overall/intro)) API, also known as [Open API V2](http://doc.yosmart.com/docs/protocol/openAPIV2).
 
+Note that the documentation on the YoSmart website is not always up-to-date with the current responses. Only devices that could be tested have been included here. More to follow as additional Yosmart items are purchased. Here are the versions of supported devices:
+
+### Supported Devices and Versions
+
+| Device Name  | Model Name | Version |
+| ------------ | ---------- | ------- |
+| Outlet       | YS6604-UC  | 040e    |
+| MotionSensor | YS7804-UC  | 0471    |
+| DoorSensor   | YS7707-UC  | 0704    |
+
 ## Features
 
-* Automated Authentication and Token Refresh - yoyoAPI will automatically authenticate on the first API request, and then continually refresh as JWT tokens expire.
-* 
-
+- Automated Authentication and Token Refresh - yoyoAPI will automatically authenticate on the first API request, and then continually refresh as JWT tokens expire.
+- Fully typesafe and intellisense for requests.
+- Generate and Interact with Outlet, MotionSensor, and DoorSensor devices.
 
 ## Technology
 
 Every effort has been made to minimize the number of external packages used, and instead, favor native JavaScript methods (such as fetch()). Other packages and tools are listed below:
 
-* [Typescript](https://www.typescriptlang.org/)
-* [Zod](https://zod.dev) 
-* [Bruno Opensource API Client](https://www.usebruno.com)
-
+- [Typescript](https://www.typescriptlang.org/)
+- [Zod](https://zod.dev)
+- [Bruno Opensource API Client](https://www.usebruno.com)
 
 ## Default URLs
 
