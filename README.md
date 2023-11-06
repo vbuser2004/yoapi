@@ -1,6 +1,6 @@
 # yoyoAPI
 
-Yolink / Yosmart API Wrapper for Individual Product Users
+API Wrapper for Individual Product Users of Yolink / Yosmart Devices
 
 ## Description
 
@@ -21,6 +21,18 @@ Note that the documentation on the YoSmart website is not always up-to-date with
 - Automated Authentication and Token Refresh - yoyoAPI will automatically authenticate on the first API request, and then continually refresh as JWT tokens expire.
 - Fully typesafe and intellisense for requests.
 - Generate and Interact with Outlet, MotionSensor, and DoorSensor devices.
+- Custom error response to resolve when inputs or responses from [Open API V2](http://doc.yosmart.com/docs/protocol/openAPIV2) do not conform to current standards.
+  - Any error code with 700XXX is custom and returned from yoyoApi. See list of custom error codes below.
+  - Official error codes are listed on the [documentation site](http://doc.yosmart.com/docs/protocol/Code), but this list is not comprehensive.
+
+### Custom Error Codes
+
+| Code   | Description             |
+| ------ | ----------------------- |
+| 700101 | Invalid Server Response |
+| 700102 | Invalid Request Body    |
+| 700103 | Authentication Error    |
+| 700999 | Unknown yoyoApi Error   |
 
 ## Technology
 
