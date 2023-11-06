@@ -3,6 +3,7 @@ import { sendRequest } from '../../../request/client.js';
 import * as OutletTypes from '../../../../types/yolink/Outlet.js';
 import { ApiError } from '../../../../types/ApiError.js';
 import { getDaysOfWeekMask } from '../../../utility/daysofweek.js';
+import { generateError } from '../../../utility/createerror.js';
 
 class Outlet extends Device {
     // FUNCTIONS
@@ -25,7 +26,8 @@ class Outlet extends Device {
             OutletTypes[`bDDP_Outlet_${method}_Schema`].safeParse(msgBody);
 
         // Check to make sure body is type safe
-        if (!isValidBody.success) throw new Error('Invalid Request Body');
+        if (!isValidBody.success)
+            return await generateError('700102', msgid, `Outlet.${method}`);
 
         // Send request
         const safeResp = await sendRequest(msgBody);
@@ -38,7 +40,8 @@ class Outlet extends Device {
             `bUDP_Outlet_${method}_Schema`
         ].safeParse(safeResp.data);
 
-        if (!outletState.success) throw new Error('Invalid Server Response');
+        if (!outletState.success)
+            return await generateError('700101', msgid, `Outlet.${method}`);
 
         return outletState.data;
     };
@@ -77,7 +80,7 @@ class Outlet extends Device {
     setSchedules = async (
         scheduleList: OutletTypes.sches,
         msgid?: string
-    ): Promise<OutletTypes.bUDP_Outlet_setSchedules> => {
+    ): Promise<OutletTypes.bUDP_Outlet_setSchedules | ApiError> => {
         const finalSchedule = scheduleList.map((sched) => {
             // Get Mask from weekdays if not already provided
             if (sched.week <= 0) {

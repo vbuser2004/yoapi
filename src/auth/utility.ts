@@ -59,7 +59,6 @@ const getExpiresIn = (
     const new_expires_In =
         request_time + exp_in * ((100 - internal_offSet) / 100);
 
-    console.log('New Expires In: ' + new_expires_In);
     return new_expires_In;
 };
 
