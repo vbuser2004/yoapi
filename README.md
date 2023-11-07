@@ -34,6 +34,33 @@ Note that the documentation on the YoSmart website is not always up-to-date with
 | 700103 | Authentication Error    |
 | 700999 | Unknown yoyoApi Error   |
 
+## yoyoApi Usage
+
+```js
+const getYo = async () => {
+  const yo = new yoyoApi(
+    "ua_11111111111111111111111111111111",
+    "sec_v1_xxxxxxxxxxxxxxxxxxxxxxxx"
+  );
+
+  // Create a Home class
+  const home = yo.Home();
+
+  // Get a full list of devices
+  const deviceList = await home.getDeviceList();
+
+  // Selecting a MotionSensor
+  const motionDetails = deviceList.data.devices[1];
+  const motionsensor = yo.MotionSensor(motionDetails);
+
+  const result = await motionsensor.getState();
+
+  if (result.code !== "000000") throw new Error("Errors Happen");
+
+  console.log("Result: " + JSON.stringify(result));
+};
+```
+
 ## Technology
 
 Every effort has been made to minimize the number of external packages used, and instead, favor native JavaScript methods (such as fetch()). Other packages and tools are listed below:
