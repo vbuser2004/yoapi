@@ -2,9 +2,18 @@
   "name": "yoyoapi",
   "version": "0.7.0",
   "description": "API Wrapper for YoLink Devices",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vbuser2004/yoyoapi"
+  },
+  "module": "dist/esm/index.js",
   "type": "module",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "build": "tsc",
+    "build": "rm -rf dist/ && pnpm build:esm",
+    "build:esm": "tsc",
     "dev": "tsc && node ./dist/index.js"
   },
   "keywords": [
