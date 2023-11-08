@@ -4,7 +4,7 @@
     "noUncheckedIndexedAccess": true,
     "esModuleInterop": true,
     "allowJs": true,
-    "outDir": "dist",
+    "outDir": "./dist/",
     "module": "NodeNext",
     "target": "ES2022",
     "sourceMap": true,
