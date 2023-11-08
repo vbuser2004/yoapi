@@ -1,12 +1,12 @@
 {
   "name": "yoyoapi",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "description": "API Wrapper for YoLink Devices",
   "repository": {
     "type": "git",
     "url": "https://github.com/vbuser2004/yoyoapi"
   },
-  "module": "dist/esm/index.js",
+  "main": "dist/index.js",
   "type": "module",
   "files": [
     "dist"
