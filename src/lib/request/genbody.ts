@@ -1,7 +1,9 @@
+import { ApiError } from "../../types/ApiError.js";
 import { baseBDDP, baseBDDP_Schema } from "../../types/BasicDataPacket.js";
+import { generateError } from "../utility/createerror.js";
 
 // Generate body to transmit to API
-export const generateBody = (packet: baseBDDP) => {
+export const generateBody = (packet: baseBDDP): baseBDDP | ApiError => {
   // Construct body and add time
   const body = {
     ...packet,
@@ -10,7 +12,8 @@ export const generateBody = (packet: baseBDDP) => {
 
   const isBDDPRequest = baseBDDP_Schema.partial().safeParse(body);
 
-  if (!isBDDPRequest.success) throw new Error("Invalid Request Body Data");
+  if (!isBDDPRequest.success)
+    return generateError("700102", "MsgIdUnknown", "error");
 
   return body;
 };
