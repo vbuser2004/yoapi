@@ -20,6 +20,7 @@ describe('Create yoyoApi Tests', () => {
     });
 
     test('Invalid Authentication Credentials', () => {
+        console.log(process.env.SOME_VAR);
         expect(async () => {
             const yo = new yoyoapi('test', 'test');
             const results = await yo.GetDevices();
