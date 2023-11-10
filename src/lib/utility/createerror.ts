@@ -1,4 +1,10 @@
-export const generateError = (code: string, msgid: string, method: string) => {
+import { ApiError } from "../../types/ApiError.js";
+
+export const generateError = (
+  code: string,
+  msgid: string,
+  method: string
+): ApiError => {
   let desc;
 
   switch (code) {

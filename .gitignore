@@ -1,5 +1,5 @@
 dist
-jest
+.jest/setEnvVars.js
 
 # Logs
 logs
