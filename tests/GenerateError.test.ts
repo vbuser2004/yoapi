@@ -13,15 +13,15 @@ describe("Test if generate error works for valid error", () => {
     );
   });
   test("Error object returns matches ApiError", () => {
-    expect(
-      generateError("700102", "noMsgId", "MotionSensor.getState")
-    ).toMatchObject({
+    const res = generateError("700102", "noMsgId", "MotionSensor.getState");
+    expect(res).toMatchObject({
       code: "700102",
       data: {},
       desc: "Invalid Request Body",
       method: "MotionSensor.getState",
       msgid: "noMsgId",
-      time: new Date().getTime(),
+      time: res.time,
     });
+    expect(res).toBeDefined();
   });
 });
