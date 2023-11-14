@@ -66,6 +66,8 @@ export const bUDP_Outlet_setDelay_Schema = baseBUDP_Schema.extend({
 export type bUDP_Outlet_setDelay = z.infer<typeof bUDP_Outlet_setDelay_Schema>;
 
 // BDDP Outlet.getSchedules
+export const bDDP_Outlet_getSchedules_Schema = baseBDDP_Schema;
+
 export type bDDP_Outlet_getSchedules = z.infer<typeof baseBDDP_Schema>;
 
 // BUDP Outlet.getSchedules
