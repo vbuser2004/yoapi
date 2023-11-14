@@ -41,7 +41,7 @@ class Outlet extends Device {
     );
 
     if (!outletState.success)
-      return await generateError("700101", msgid, `Outlet.${method}`);
+      return generateError("700101", msgid, `Outlet.${method}`);
 
     return outletState.data;
   };
@@ -78,7 +78,7 @@ class Outlet extends Device {
   };
 
   /*
-   *  **** Yolink API returns an error with this call ****
+   *  **** Yolink API returns an ERROR with this call ****
    *  Error states that function is not available via the API.
    *
    */
