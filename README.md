@@ -24,6 +24,7 @@ Note that the documentation on the YoSmart website is not always up-to-date with
 - Custom error response to resolve when inputs or responses from [Open API V2](http://doc.yosmart.com/docs/protocol/openAPIV2) do not conform to current standards.
   - Any error code with 700XXX is custom and returned from yoyoApi. See list of custom error codes below.
   - Official error codes are listed on the [documentation site](http://doc.yosmart.com/docs/protocol/Code), but this list is not comprehensive.
+- Unit tests of basic functions and rudimentary integrated tests of API using Jest with ~74% coverage.
 
 ### Custom Error Codes
 
@@ -68,6 +69,7 @@ Every effort has been made to minimize the number of external packages used, and
 - [Typescript](https://www.typescriptlang.org/)
 - [Zod](https://zod.dev)
 - [Bruno Opensource API Client](https://www.usebruno.com)
+- [Jest](https://jestjs.io)
 
 ## Default URLs
 
