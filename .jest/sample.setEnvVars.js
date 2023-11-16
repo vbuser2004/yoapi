@@ -12,26 +12,27 @@
  *
  * ************
  */
-process.env.UAID = "YOUR UAID";
-process.env.SECRET_KEY = "YOUR SECRET KEY";
+process.env.UAID = 'YOUR UAID';
+process.env.SECRET_KEY = 'YOUR SECRET KEY';
 
 // Valid Device Target ID's and Tokens
-process.env.OUTLET_TARGET_DEV = "test";
-process.env.OUTLET_TOKEN = "test";
+// ** FILL IN YOUR VALID ID AND TOKENS
+process.env.OUTLET_TARGET_DEV = 'VALID ID';
+process.env.OUTLET_TOKEN = 'VALID TOKEN';
 
-process.env.MOTION_TARGET_DEV = "test";
-process.env.MOTION_TOKEN = "test";
+process.env.MOTION_TARGET_DEV = 'VALID ID';
+process.env.MOTION_TOKEN = 'VALID TOKEN';
 
-process.env.DOOR_SENSOR_TARGET_DEV = "test";
-process.env.DOOR_SENSOR_TOKEN = "test";
+process.env.DOOR_SENSOR_TARGET_DEV = 'VALID ID';
+process.env.DOOR_SENSOR_TOKEN = 'VALID TOKEN';
 
 // Invalid Device Target ID's and Tokens
 // These will generate failed responses for testing
-process.env.OUTLET_TARGET_DEV = "test";
-process.env.OUTLET_TOKEN = "test";
+process.env.OUTLET_TARGET_DEV_FAIL = 'test';
+process.env.OUTLET_TOKEN_FAIL = 'test';
 
-process.env.MOTION_TARGET_DEV = "test";
-process.env.MOTION_TOKEN = "test";
+process.env.MOTION_TARGET_DEV_FAIL = 'test';
+process.env.MOTION_TOKEN_FAIL = 'test';
 
-process.env.DOOR_SENSOR_TARGET_DEV = "test";
-process.env.DOOR_SENSOR_TOKEN = "test";
+process.env.DOOR_SENSOR_TARGET_DEV_FAIL = 'test';
+process.env.DOOR_SENSOR_TOKEN_FAIL = 'test';
