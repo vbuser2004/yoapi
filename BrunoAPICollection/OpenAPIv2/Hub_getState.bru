@@ -1,0 +1,27 @@
+meta {
+  name: Hub_getState
+  type: http
+  seq: 9
+}
+
+post {
+  url: {{deviceURL}}
+  body: json
+  auth: bearer
+}
+
+headers {
+  Content-Type: application/json
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+body:json {
+  {
+    "method": "Hub.getState",
+    "targetDevice": "{{HUB_TARGET_DEV}}",
+    "token": "{{HUB_TOKEN}}"
+  }
+}

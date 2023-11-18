@@ -11,6 +11,7 @@ import Home from './lib/devices/yolink/Home/index.js';
 import Outlet from './lib/devices/yolink/Outlet/index.js';
 import MotionSensor from './lib/devices/yolink/MotionSensor/index.js';
 import DoorSensor from './lib/devices/yolink/DoorSensor/index.js';
+import Hub from './lib/devices/yolink/Hub/index.js';
 
 class yoyoApi {
     // VARIABLES
@@ -87,6 +88,11 @@ class yoyoApi {
     DoorSensor(deviceDetails: DeviceType): DoorSensor {
         const doorsensor = new DoorSensor(deviceDetails);
         return doorsensor;
+    }
+
+    Hub(deviceDetails: DeviceType): Hub {
+        const hub = new Hub(deviceDetails);
+        return hub;
     }
 }
 

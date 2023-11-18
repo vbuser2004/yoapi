@@ -15,6 +15,11 @@ const targetMotionSensor = process.env.MOTION_TARGET_DEV;
 const targetMSToken = process.env.MOTION_TOKEN;
 const bogusMotionSensor = process.env.MOTION_TARGET_DEV_FAIL;
 const bogusMSToken = process.env.MOTION_TOKEN_FAIL;
+// Hub
+const targetHub = process.env.HUB_TARGET_DEV;
+const targetHubToken = process.env.HUB_TOKEN;
+const bogusHub = process.env.HUB_TARGET_DEV_FAIL;
+const bogusHubToken = process.env.HUB_TOKEN_FAIL;
 
 // Outlet Class
 const goodOutlet = yo.Outlet({
@@ -52,6 +57,19 @@ const bogusMS = yo.MotionSensor({
     type: 'MotionSensor',
     deviceId: bogusMotionSensor!,
     token: bogusMSToken!,
+});
+
+// Hub Class
+const goodHub = yo.Hub({
+    type: 'Hub',
+    deviceId: targetHub!,
+    token: targetHubToken!,
+});
+
+const bogusHb = yo.Hub({
+    type: 'Hub',
+    deviceId: bogusHub!,
+    token: bogusHubToken!,
 });
 
 describe('Home Tests', () => {
@@ -134,6 +152,25 @@ describe('Motion Sensor Tests', () => {
 
     test('Expect an Error in Code', async () => {
         const result = await bogusMS.getState();
+        expect(result.code).toBe('000103');
+    });
+});
+
+describe('Hub Tests', () => {
+    test('Get Hub State', async () => {
+        const result = await goodHub.getState();
+        expect(result).toBeDefined();
+        expect(result.data).toHaveProperty('online');
+        expect(result.code).toBe('000000');
+    });
+
+    test('Verify Model Name', () => {
+        const result = goodHub.type;
+        expect(result).toBe('Hub');
+    });
+
+    test('Expect an Error in Code', async () => {
+        const result = await bogusHb.getState();
         expect(result.code).toBe('000103');
     });
 });

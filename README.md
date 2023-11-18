@@ -12,19 +12,20 @@ Note that the documentation on the YoSmart website is not always up-to-date with
 
 | Device Name  | Model Name | Version |
 | ------------ | ---------- | ------- |
+| Hub          | YS1603-UC  | 0361    |
 | Outlet       | YS6604-UC  | 040e    |
 | MotionSensor | YS7804-UC  | 0471    |
 | DoorSensor   | YS7707-UC  | 0704    |
 
 ## Features
 
-- Automated Authentication and Token Refresh - yoyoAPI will automatically authenticate on the first API request, and then continually refresh as JWT tokens expire.
-- Fully typesafe and intellisense for requests.
-- Generate and Interact with Outlet, MotionSensor, and DoorSensor devices.
-- Custom error response to resolve when inputs or responses from [Open API V2](http://doc.yosmart.com/docs/protocol/openAPIV2) do not conform to current standards.
-  - Any error code with 700XXX is custom and returned from yoyoApi. See list of custom error codes below.
-  - Official error codes are listed on the [documentation site](http://doc.yosmart.com/docs/protocol/Code), but this list is not comprehensive.
-- Unit tests of basic functions and rudimentary integrated tests of API using Jest with ~74% coverage.
+-   Automated Authentication and Token Refresh - yoyoAPI will automatically authenticate on the first API request, and then continually refresh as JWT tokens expire.
+-   Fully typesafe and intellisense for requests.
+-   Generate and Interact with Outlet, MotionSensor, and DoorSensor devices.
+-   Custom error response to resolve when inputs or responses from [Open API V2](http://doc.yosmart.com/docs/protocol/openAPIV2) do not conform to current standards.
+    -   Any error code with 700XXX is custom and returned from yoyoApi. See list of custom error codes below.
+    -   Official error codes are listed on the [documentation site](http://doc.yosmart.com/docs/protocol/Code), but this list is not comprehensive.
+-   Unit tests of basic functions and rudimentary integrated tests of API using Jest with ~74% coverage.
 
 ### Custom Error Codes
 
@@ -39,26 +40,26 @@ Note that the documentation on the YoSmart website is not always up-to-date with
 
 ```js
 const getYo = async () => {
-  const yo = new yoyoApi(
-    "ua_11111111111111111111111111111111",
-    "sec_v1_xxxxxxxxxxxxxxxxxxxxxxxx"
-  );
+    const yo = new yoyoApi(
+        'ua_11111111111111111111111111111111',
+        'sec_v1_xxxxxxxxxxxxxxxxxxxxxxxx'
+    );
 
-  // Create a Home class
-  const home = yo.Home();
+    // Create a Home class
+    const home = yo.Home();
 
-  // Get a full list of devices
-  const deviceList = await home.getDeviceList();
+    // Get a full list of devices
+    const deviceList = await home.getDeviceList();
 
-  // Selecting a MotionSensor
-  const motionDetails = deviceList.data.devices[1];
-  const motionsensor = yo.MotionSensor(motionDetails);
+    // Selecting a MotionSensor
+    const motionDetails = deviceList.data.devices[1];
+    const motionsensor = yo.MotionSensor(motionDetails);
 
-  const result = await motionsensor.getState();
+    const result = await motionsensor.getState();
 
-  if (result.code !== "000000") throw new Error("Errors Happen");
+    if (result.code !== '000000') throw new Error('Errors Happen');
 
-  console.log("Result: " + JSON.stringify(result));
+    console.log('Result: ' + JSON.stringify(result));
 };
 ```
 
@@ -66,10 +67,10 @@ const getYo = async () => {
 
 Every effort has been made to minimize the number of external packages used, and instead, favor native JavaScript methods (such as fetch()). Other packages and tools are listed below:
 
-- [Typescript](https://www.typescriptlang.org/)
-- [Zod](https://zod.dev)
-- [Bruno Opensource API Client](https://www.usebruno.com)
-- [Jest](https://jestjs.io)
+-   [Typescript](https://www.typescriptlang.org/)
+-   [Zod](https://zod.dev)
+-   [Bruno Opensource API Client](https://www.usebruno.com)
+-   [Jest](https://jestjs.io)
 
 ## Default URLs
 
@@ -81,9 +82,9 @@ The default URL for obtaining a authorization token is: <https://api.yosmart.com
 
 To use the yoyoAPI wrapper you will need:
 
-- An account within the YoLink system using the YoLink application on an Android or Apple device.
-- Create Access Credentials for the API, including a UAID and a Secret Key.
-  - From within the app: [Account] => [Advanced Settings] => [Personal Access Credentials] => [+]
+-   An account within the YoLink system using the YoLink application on an Android or Apple device.
+-   Create Access Credentials for the API, including a UAID and a Secret Key.
+    -   From within the app: [Account] => [Advanced Settings] => [Personal Access Credentials] => [+]
 
 ## Disclaimer
 

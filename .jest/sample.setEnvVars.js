@@ -26,6 +26,9 @@ process.env.MOTION_TOKEN = 'VALID TOKEN';
 process.env.DOOR_SENSOR_TARGET_DEV = 'VALID ID';
 process.env.DOOR_SENSOR_TOKEN = 'VALID TOKEN';
 
+process.env.HUB_TARGET_DEV = 'VALID ID';
+process.env.HUB_TOKEN = 'VALID TOKEN';
+
 // Invalid Device Target ID's and Tokens
 // These will generate failed responses for testing
 process.env.OUTLET_TARGET_DEV_FAIL = 'test';
@@ -36,3 +39,6 @@ process.env.MOTION_TOKEN_FAIL = 'test';
 
 process.env.DOOR_SENSOR_TARGET_DEV_FAIL = 'test';
 process.env.DOOR_SENSOR_TOKEN_FAIL = 'test';
+
+process.env.HUB_TARGET_DEV_FAIL = 'test';
+process.env.HUB_TOKEN_FAIL = 'test';
