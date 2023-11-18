@@ -66,6 +66,13 @@ describe('Home Tests', () => {
         expect(result.msgid).toBe('MyMessageId');
     });
 
+    test('Get General Info', async () => {
+        const result = await yo.Home().getGeneralInfo('NewMessageId');
+        expect(result.msgid).toBe('NewMessageId');
+        expect(result.code).toBe('000000');
+        expect(result.data).toHaveProperty('id');
+    });
+
     test('Expect Result Code to be 000000', async () => {
         const result = await yo.Home().getDeviceList();
         expect(result.code).toBe('000000');
