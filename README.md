@@ -10,12 +10,12 @@ Note that the documentation on the YoSmart website is not always up-to-date with
 
 ### Supported Devices and Versions
 
-| Device Name  | Model Name | Version |
-| ------------ | ---------- | ------- |
-| Hub          | YS1603-UC  | 0361    |
-| Outlet       | YS6604-UC  | 040e    |
-| MotionSensor | YS7804-UC  | 0471    |
-| DoorSensor   | YS7707-UC  | 0704    |
+| Device Name  | Model Name | Tested Version |
+| ------------ | ---------- | -------------- |
+| Hub          | YS1603-UC  | 0361           |
+| Outlet       | YS6604-UC  | 040e           |
+| MotionSensor | YS7804-UC  | 0471           |
+| DoorSensor   | YS7707-UC  | 0704           |
 
 ## Features
 
