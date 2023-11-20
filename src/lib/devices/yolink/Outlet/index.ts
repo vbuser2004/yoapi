@@ -27,10 +27,12 @@ class Outlet extends Device {
 
     // Check to make sure body is type safe
     if (!isValidBody.success)
-      return await generateError("700102", msgid, `Outlet.${method}`);
+      return generateError("700102", msgid, `Outlet.${method}`);
 
     // Send request
-    const safeResp = await sendRequest(msgBody);
+    // TODO: CHECK IF ERROR - use verified body not msgbody.
+    //const safeResp = await sendRequest(msgBody);
+    const safeResp = await sendRequest(isValidBody.data);
 
     // If error send error data
     if (!safeResp.success) return safeResp.data;
