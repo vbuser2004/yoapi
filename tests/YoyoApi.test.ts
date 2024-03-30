@@ -25,6 +25,11 @@ const garageControl = process.env.GARAGE_CONTROL_TARGET_DEV;
 const garageControlToken = process.env.GARAGE_CONTROL_TOKEN;
 const bogusGarageControl = process.env.GARAGE_CONTROL_TARGET_DEV_FAIL;
 const bogusGarageControlToken = process.env.GARAGE_CONTROL_TOKEN_FAIL;
+// MultiOutlet
+const multiOutlet = process.env.MULTIOUTLET_TARGET_DEV;
+const multiOutletToken = process.env.MULTIOUTLET_TOKEN;
+const bogusMultiOutlet = process.env.MULTIOUTLET_TARGET_DEV_FAIL;
+const bogusMultiOutletToken = process.env.MULTIOUTLET_TOKEN_FAIL;
 // Hub
 const targetHub = process.env.HUB_TARGET_DEV;
 const targetHubToken = process.env.HUB_TOKEN;
@@ -69,6 +74,7 @@ const bogusMS = yo.MotionSensor({
     token: bogusMSToken!,
 });
 
+// Garage Door Sensor
 const goodGarageSensor = yo.GarageSensor({
     type: 'DoorSensor',
     deviceId: garageDoorSensor!,
@@ -81,16 +87,30 @@ const bogusGDS = yo.GarageSensor({
     token: bogusGarageDoorSensorToken!,
 });
 
-const goodGarageControl = yo.GarageControl({
+// Garage Door Control
+const goodGarageControl = yo.GarageDoor({
     type: 'GarageDoor',
     deviceId: garageControl!,
     token: garageControlToken!,
 });
 
-const bogusGC = yo.GarageControl({
+const bogusGC = yo.GarageDoor({
     type: 'GarageDoor',
     deviceId: bogusGarageControl!,
     token: bogusGarageControlToken!,
+});
+
+// MultiOutlet Class
+const goodMultiOutlet = yo.MultiOutlet({
+    type: 'MultiOutlet',
+    deviceId: multiOutlet!,
+    token: multiOutletToken!,
+});
+
+const bogusMO = yo.MultiOutlet({
+    type: 'MultiOutlet',
+    deviceId: bogusMultiOutlet!,
+    token: bogusMultiOutletToken!,
 });
 
 // Hub Class
@@ -225,6 +245,30 @@ describe('Garage Door Tests', () => {
         expect(result.code).toBe('000103');
     });
 });
+
+describe('MultiOutlet Tests', () => {
+    test('Get MultiOutlet State', async () => {
+        const result = await goodMultiOutlet.getState();
+        expect(result).toBeDefined();
+        expect(result.code).toBe('000000');
+    });
+
+    test('Verify Model Name', () => {
+        const result = goodMultiOutlet.type;
+        expect(result).toBe('MultiOutlet');
+    });
+
+    test('Expect Get Schedules Code to be 000000', async () => {
+        const result = await goodMultiOutlet.getSchedules();
+        expect(result.code).toBe('000000');
+    });
+
+    test('Expect an Error in Code', async () => {
+        const result = await bogusMO.getState();
+        expect(result.code).toBe('000103');
+    });
+});
+
 describe('Hub Tests', () => {
     test('Get Hub State', async () => {
         const result = await goodHub.getState();

@@ -13,6 +13,7 @@ import MotionSensor from './lib/devices/yolink/MotionSensor/index.js';
 import DoorSensor from './lib/devices/yolink/DoorSensor/index.js';
 import Hub from './lib/devices/yolink/Hub/index.js';
 import GarageDoor from './lib/devices/yolink/GarageDoor/index.js';
+import MultiOutlet from './lib/devices/yolink/MultiOutlet/index.js';
 
 class yoyoApi {
     // VARIABLES
@@ -100,6 +101,11 @@ class yoyoApi {
     GarageDoor(deviceDetails: DeviceType): GarageDoor {
         const garagedoor = new GarageDoor(deviceDetails);
         return garagedoor;
+    }
+
+    MultiOutlet(deviceDetails: DeviceType): MultiOutlet {
+        const multioutlet = new MultiOutlet(deviceDetails);
+        return multioutlet;
     }
     
     Hub(deviceDetails: DeviceType): Hub {

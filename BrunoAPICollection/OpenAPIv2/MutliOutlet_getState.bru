@@ -1,0 +1,27 @@
+meta {
+  name: MutliOutlet_getState
+  type: http
+  seq: 11
+}
+
+post {
+  url: {{deviceURL}}
+  body: json
+  auth: bearer
+}
+
+headers {
+  Content-Type: application/json
+}
+
+auth:bearer {
+  token: {{bearerToken}}
+}
+
+body:json {
+  {
+    "method": "MultiOutlet.getState",
+    "targetDevice": "{{MULTIOUTLET_TARGET_DEV}}",
+    "token": "{{MULTIOUTLET_TOKEN}}"
+  }
+}

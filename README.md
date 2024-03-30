@@ -18,6 +18,7 @@ Note that the documentation on the YoSmart website is not always up-to-date with
 | DoorSensor*   | YS7707-UC  | 0704           |
 | GarageSensor* | YS7706-UC  | 060f           |
 | GarageDoor    | YS4906-UC  | 060b           |
+| MultiOutlet   | YS6802-UC  | 0208           |
 
 *GarageSensor uses the same interface as DoorSensor.
 
@@ -94,6 +95,7 @@ To use the yoyoAPI wrapper you will need:
 -   v0.7.6 - Initial Publish
 -   v0.7.7 - Added Garage Door Control and Garage Door Sensor
 -   v0.7.8 - Minor name change to match product
+-   v0.7.9 - Added MultiOutlet
 
 ## Disclaimer
 
