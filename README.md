@@ -17,7 +17,7 @@ Note that the documentation on the YoSmart website is not always up-to-date with
 | MotionSensor  | YS7804-UC  | 0471           |
 | DoorSensor*   | YS7707-UC  | 0704           |
 | GarageSensor* | YS7706-UC  | 060f           |
-| GarageControl | YS4906-UC  | 060b           |
+| GarageDoor    | YS4906-UC  | 060b           |
 
 *GarageSensor uses the same interface as DoorSensor.
 
@@ -93,6 +93,7 @@ To use the yoyoAPI wrapper you will need:
 ## ChangeLog
 -   v0.7.6 - Initial Publish
 -   v0.7.7 - Added Garage Door Control and Garage Door Sensor
+-   v0.7.8 - Minor name change to match product
 
 ## Disclaimer
 

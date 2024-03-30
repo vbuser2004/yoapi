@@ -208,7 +208,7 @@ describe('Garage Sensor Tests', () => {
     });
 });
 
-describe('Garage Control Tests', () => {
+describe('Garage Door Tests', () => {
     test('Get Garage Control State', async () => {
         const result = await goodGarageControl.getState();
         expect(result).toBeDefined();

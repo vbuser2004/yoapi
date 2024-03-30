@@ -97,9 +97,9 @@ class yoyoApi {
         return garagesensor;
     }
 
-    GarageControl(deviceDetails: DeviceType): GarageDoor {
-        const garagecontrol = new GarageDoor(deviceDetails);
-        return garagecontrol;
+    GarageDoor(deviceDetails: DeviceType): GarageDoor {
+        const garagedoor = new GarageDoor(deviceDetails);
+        return garagedoor;
     }
     
     Hub(deviceDetails: DeviceType): Hub {
