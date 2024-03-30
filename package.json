@@ -1,6 +1,6 @@
 {
     "name": "yoyoapi",
-    "version": "0.7.6",
+    "version": "0.7.7",
     "description": "API Wrapper for YoLink Devices",
     "repository": {
         "type": "git",

@@ -10,12 +10,16 @@ Note that the documentation on the YoSmart website is not always up-to-date with
 
 ### Supported Devices and Versions
 
-| Device Name  | Model Name | Tested Version |
-| ------------ | ---------- | -------------- |
-| Hub          | YS1603-UC  | 0361           |
-| Outlet       | YS6604-UC  | 040e           |
-| MotionSensor | YS7804-UC  | 0471           |
-| DoorSensor   | YS7707-UC  | 0704           |
+| Device Name   | Model Name | Tested Version |
+| ------------- | ---------- | -------------- |
+| Hub           | YS1603-UC  | 0361           |
+| Outlet        | YS6604-UC  | 040e           |
+| MotionSensor  | YS7804-UC  | 0471           |
+| DoorSensor*   | YS7707-UC  | 0704           |
+| GarageSensor* | YS7706-UC  | 060f           |
+| GarageControl | YS4906-UC  | 060b           |
+
+*GarageSensor uses the same interface as DoorSensor.
 
 ## Features
 
@@ -85,6 +89,10 @@ To use the yoyoAPI wrapper you will need:
 -   An account within the YoLink system using the YoLink application on an Android or Apple device.
 -   Create Access Credentials for the API, including a UAID and a Secret Key.
     -   From within the app: [Account] => [Advanced Settings] => [Personal Access Credentials] => [+]
+
+## ChangeLog
+-   v0.7.6 - Initial Publish
+-   v0.7.7 - Added Garage Door Control and Garage Door Sensor
 
 ## Disclaimer
 

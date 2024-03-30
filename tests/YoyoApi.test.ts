@@ -15,6 +15,16 @@ const targetMotionSensor = process.env.MOTION_TARGET_DEV;
 const targetMSToken = process.env.MOTION_TOKEN;
 const bogusMotionSensor = process.env.MOTION_TARGET_DEV_FAIL;
 const bogusMSToken = process.env.MOTION_TOKEN_FAIL;
+// Garage Door Sensor
+const garageDoorSensor = process.env.GARAGE_DOOR_SENSOR_TARGET_DEV;
+const garageDoorSensorToken = process.env.GARAGE_DOOR_SENSOR_TOKEN;
+const bogusGarageDoorSensor = process.env.GARAGE_DOOR_SENSOR_TARGET_DEV_FAIL;
+const bogusGarageDoorSensorToken = process.env.GARAGE_DOOR_SENSOR_TOKEN_FAIL;
+// Garage Door Control
+const garageControl = process.env.GARAGE_CONTROL_TARGET_DEV;
+const garageControlToken = process.env.GARAGE_CONTROL_TOKEN;
+const bogusGarageControl = process.env.GARAGE_CONTROL_TARGET_DEV_FAIL;
+const bogusGarageControlToken = process.env.GARAGE_CONTROL_TOKEN_FAIL;
 // Hub
 const targetHub = process.env.HUB_TARGET_DEV;
 const targetHubToken = process.env.HUB_TOKEN;
@@ -57,6 +67,30 @@ const bogusMS = yo.MotionSensor({
     type: 'MotionSensor',
     deviceId: bogusMotionSensor!,
     token: bogusMSToken!,
+});
+
+const goodGarageSensor = yo.GarageSensor({
+    type: 'DoorSensor',
+    deviceId: garageDoorSensor!,
+    token: garageDoorSensorToken!,
+});
+
+const bogusGDS = yo.GarageSensor({
+    type: 'DoorSensor',
+    deviceId: bogusGarageDoorSensor!,
+    token: bogusGarageDoorSensorToken!,
+});
+
+const goodGarageControl = yo.GarageControl({
+    type: 'GarageDoor',
+    deviceId: garageControl!,
+    token: garageControlToken!,
+});
+
+const bogusGC = yo.GarageControl({
+    type: 'GarageDoor',
+    deviceId: bogusGarageControl!,
+    token: bogusGarageControlToken!,
 });
 
 // Hub Class
@@ -156,6 +190,41 @@ describe('Motion Sensor Tests', () => {
     });
 });
 
+describe('Garage Sensor Tests', () => {
+    test('Get Door State', async () => {
+        const result = await goodGarageSensor.getState();
+        expect(result).toBeDefined();
+        expect(result.code).toBe('000000');
+    });
+
+    test('Verify Model Name', () => {
+        const result = goodGarageSensor.type;
+        expect(result).toBe('DoorSensor');
+    });
+
+    test('Expect an Error in Code', async () => {
+        const result = await bogusGDS.getState();
+        expect(result.code).toBe('000103');
+    });
+});
+
+describe('Garage Control Tests', () => {
+    test('Get Garage Control State', async () => {
+        const result = await goodGarageControl.getState();
+        expect(result).toBeDefined();
+        expect(result.code).toBe('000000');
+    });
+
+    test('Verify Model Name', () => {
+        const result = goodGarageControl.type;
+        expect(result).toBe('GarageDoor');
+    });
+
+    test('Expect an Error in Code', async () => {
+        const result = await bogusGDS.getState();
+        expect(result.code).toBe('000103');
+    });
+});
 describe('Hub Tests', () => {
     test('Get Hub State', async () => {
         const result = await goodHub.getState();
